@@ -23,7 +23,7 @@ export function Login() {
   async function signInWithEmail() {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: "olim1003@gmail.com",
-      password: "Piesares1",
+      password: "aa",
     });
     if (error) {
       console.log(error);
