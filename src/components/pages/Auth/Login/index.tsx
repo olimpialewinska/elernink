@@ -13,22 +13,36 @@ import {
   LoginHeaderIcon,
   ParagraphWrapper,
 } from "../style";
-import { useSupabase } from "@/app/supabase-provider";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { supabase } = useSupabase();
-  async function signInWithEmail() {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: "olim1003@gmail.com",
-      password: "aa",
-    });
-    if (error) {
-      console.log(error);
+  const router = useRouter();
+
+  const signInWithEmail = useCallback(async () => {
+    if (email === "" || password === "") {
+      return;
     }
-  }
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    const data = await response.json();
+    if (data.error) {
+      alert(data.error);
+    } else {
+      router.push("/dashboard");
+    }
+  }, [email, password, router]);
 
   return (
     <Container>
@@ -45,9 +59,7 @@ export function Login() {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit" onClick={signInWithEmail}>
-            Log in
-          </Button>
+          <Button onClick={signInWithEmail}>Log in</Button>
         </LoginContent>
         <LoginFooter>
           <ParagraphWrapper>

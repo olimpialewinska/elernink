@@ -4,8 +4,7 @@ export const RegisterContainer = styled.div`
   width: 400px;
   border-radius: 10px;
   background-color: white;
-  box-shadow:
-    0 2.8px 2.2px rgba(0, 0, 0, 0.5),
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.5);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -48,7 +47,7 @@ export const Input = styled.input`
   font-size: 14px;
 `;
 
-export const Button = styled.button`
+export const Button = styled.div`
   width: 150px;
   background-color: #5882a3;
   margin: 10px;
@@ -63,6 +62,9 @@ export const Button = styled.button`
   cursor: pointer;
   font-weight: bold;
   transition: 0.2s all;
+
+  text-align: center;
+
   &:hover {
     background-color: #3e5f78;
   }
@@ -81,8 +83,7 @@ export const LoginContainer = styled.div`
   background-color: #fff;
   border-radius: 10px;
   background-color: white;
-  box-shadow:
-    0 2.8px 2.2px rgba(0, 0, 0, 0.5),
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.5);
   padding: 20px;
   display: flex;
   flex-direction: column;

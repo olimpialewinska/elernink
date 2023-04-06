@@ -1,4 +1,4 @@
-import { useSupabase } from "@/app/supabase-provider";
+import { useRouter } from "next/navigation";
 import {
   Button,
   Container,
@@ -10,42 +10,51 @@ import {
 import { useCallback, useState } from "react";
 
 export function Register() {
+  const router = useRouter();
   const [buttonText, setButonText] = useState("Register");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [confirm, setConfirm] = useState("");
 
-  const { supabase } = useSupabase();
+  const registerWithEmail = useCallback(async () => {
+    setButonText("Loading...");
+    if (email === "" || password === "") {
+      return;
+    }
+    if (password !== confirm) {
+      alert("Passwords do not match");
+      return;
+    }
 
-  const handleRegister = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      await supabase.auth.signUp({
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         email: email,
         password: password,
-      });
-      window.location.href = "/dashboard";
-    },
-    [email, password, supabase.auth]
-  );
+      }),
+    });
+
+    const data = response.status;
+
+    if (data === 200) {
+      router.push("/login");
+    } else if (data === 400) {
+      alert("User already exists");
+    } else {
+      alert("Something went wrong");
+    }
+
+    setButonText("Register");
+  }, [confirm, email, password, router]);
 
   return (
     <Container>
       <RegisterContainer>
         <RegisterHeaderIcon />
         <RegisterContent autoComplete={"on"}>
-          <Input
-            type="text"
-            placeholder="Name"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Input
-            type="text"
-            placeholder="Last Name"
-            style={{ marginBottom: 32 }}
-            onChange={(e) => setLastName(e.target.value)}
-          />
           <Input
             type="email"
             placeholder="Email"
@@ -57,16 +66,16 @@ export function Register() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Input
+            type="password"
             placeholder="Confirm Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setConfirm(e.target.value)}
           />
 
           <Button
-            type="submit"
             style={{
               marginBottom: 32,
             }}
-            onSubmit={() => handleRegister}
+            onClick={registerWithEmail}
           >
             {buttonText}
           </Button>

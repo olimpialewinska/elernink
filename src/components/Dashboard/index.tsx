@@ -1,4 +1,3 @@
-import { useSupabase } from "@/app/supabase-provider";
 import {
   BurgerMenu,
   Button,
@@ -13,7 +12,7 @@ import {
   LogoMobile,
   CloseMobile,
 } from "./style";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { MyCourses } from "./MyCourses";
 import { FindCourse } from "./FindCourse";
@@ -32,6 +31,16 @@ export function Dashboard() {
   const currentCategory = category;
 
   const isTeacher = true;
+
+  const signOut = useCallback(async () => {
+    await fetch("/api/auth/signOut", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    router.push("/login");
+  }, [router]);
 
   return (
     <>
@@ -115,7 +124,7 @@ export function Dashboard() {
               Settings
             </Item>
           </List>
-          <Button>Sign Out</Button>
+          <Button onClick={signOut}>Sign Out</Button>
         </Menu>
 
         <Content close={close}>
