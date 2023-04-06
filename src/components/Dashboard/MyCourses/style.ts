@@ -66,7 +66,7 @@ export const Text = styled.div`
 
 export const Statistics = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
   padding: 20px;
 `;
@@ -75,24 +75,26 @@ export const Box = styled.div`
   flex-grow: 0.25;
   border-radius: 10px;
   padding: 20px;
-  margin: 10px;
   background: linear-gradient(
     45deg,
     rgba(185, 203, 255, 1) 0%,
     rgba(101, 157, 255, 1) 100%
   );
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   height: 100px;
 `;
 
 export const Courses = styled.div<ContentProps>`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  padding: 20px;
   justify-content: center;
   overflow: ${(props) => (props.close ? "scroll" : "none")};
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export const Course = styled.div`
@@ -105,12 +107,9 @@ export const Course = styled.div`
   height: 200px;
   background: linear-gradient(
     45deg,
-    rgba(185, 203, 255, 1) 0%,
-    rgba(101, 157, 255, 1) 100%
+    rgba(101, 157, 255, 1) 0%,
+    rgba(185, 203, 255, 1) 100%
   );
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 20px;
-  margin: 10px;
-  width: 350px;
 `;

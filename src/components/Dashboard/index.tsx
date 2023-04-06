@@ -1,5 +1,18 @@
 import { useSupabase } from "@/app/supabase-provider";
-import { Button, Container, Content, Item, List, Logo, Menu } from "./style";
+import {
+  BurgerMenu,
+  Button,
+  Close,
+  Container,
+  Content,
+  Item,
+  List,
+  Logo,
+  Menu,
+  MenuMobile,
+  LogoMobile,
+  CloseMobile,
+} from "./style";
 import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { MyCourses } from "./MyCourses";
@@ -7,20 +20,50 @@ import { FindCourse } from "./FindCourse";
 import { Notes } from "./Notes";
 import { Files } from "./Files";
 import { Settings } from "./Settings";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Create } from "./Create";
 
 export function Dashboard() {
   const router = useRouter();
   const [close, setClose] = useState(true);
+  const [open, setOpen] = useState(false);
   const category = usePathname();
 
   const currentCategory = category;
 
+  const isTeacher = true;
+
   return (
     <>
       <Container>
-        <Menu>
+        <MenuMobile>
+          <LogoMobile />
+          <BurgerMenu
+            onClick={() => {
+              setOpen(!open);
+            }}
+          />
+        </MenuMobile>
+        <Menu open={open}>
+          {open ? (
+            <CloseMobile
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
+          ) : (
+            <></>
+          )}
+          {close ? (
+            <Close
+              onClick={() => {
+                setClose(!close);
+              }}
+            />
+          ) : (
+            <></>
+          )}
+
           <Logo />
           <List>
             <Item
@@ -31,12 +74,21 @@ export function Dashboard() {
               My Courses
             </Item>
 
+            {isTeacher && (
+              <Item
+                onClick={() => {
+                  router.push("/dashboard/create");
+                }}
+              >
+                Create a course
+              </Item>
+            )}
             <Item
               onClick={() => {
                 router.push("/dashboard/find");
               }}
             >
-              Find a curse
+              Find a course
             </Item>
 
             <Item
@@ -65,14 +117,20 @@ export function Dashboard() {
           </List>
           <Button>Sign Out</Button>
         </Menu>
-        <Content
-          onClick={() => {
-            setClose(!close);
-          }}
-          close={close}
-        >
+
+        <Content close={close}>
+          {close ? (
+            <></>
+          ) : (
+            <Close
+              onClick={() => {
+                setClose(!close);
+              }}
+            />
+          )}
           {currentCategory === "/dashboard" && <MyCourses close={close} />}
           {currentCategory === "/dashboard/find" && <FindCourse />}
+          {currentCategory === "/dashboard/create" && <Create />}
           {currentCategory === "/dashboard/notes" && <Notes />}
           {currentCategory === "/dashboard/files" && <Files />}
           {currentCategory === "/dashboard/settings" && <Settings />}

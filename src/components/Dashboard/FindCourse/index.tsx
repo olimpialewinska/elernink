@@ -1,7 +1,9 @@
+import { Navbar, Title } from "./style";
+
 export function FindCourse() {
   return (
-    <div>
-      <h1>Find Course</h1>
-    </div>
+    <Navbar>
+      <Title>Find</Title>
+    </Navbar>
   );
 }

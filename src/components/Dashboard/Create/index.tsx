@@ -1,10 +1,10 @@
 import { Navbar, Title } from "./style";
 
-export function Settings() {
+export function Create() {
   return (
     <>
       <Navbar>
-        <Title>Settings</Title>
+        <Title>Create</Title>
       </Navbar>
     </>
   );
