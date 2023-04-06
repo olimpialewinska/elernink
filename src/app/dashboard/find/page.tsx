@@ -1,18 +1,9 @@
 "use client";
 import { Dashboard } from "@/components/Dashboard";
-import { useRouter } from "next/navigation";
-import { useLayoutEffect } from "react";
-import { useCookies } from "react-cookie";
+import { useSessionCheck } from "@/utils";
 
 export default function FindView() {
-  const router = useRouter();
-  const [cookies, setCookie] = useCookies(["Authorization"]);
+  useSessionCheck();
 
-  useLayoutEffect(() => {
-    const token = cookies.Authorization;
-    if (!token) {
-      router.push("/login");
-    }
-  }, [cookies.Authorization, router]);
   return <Dashboard />;
 }
