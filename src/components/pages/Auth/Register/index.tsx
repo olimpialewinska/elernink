@@ -6,6 +6,7 @@ import {
   RegisterContent,
   RegisterHeaderIcon,
   RegisterContainer,
+  Paragraph,
 } from "../style";
 import { useCallback, useState } from "react";
 
@@ -15,14 +16,18 @@ export function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+  const [match, setMatch] = useState(true);
+  const [error, setError] = useState("");
 
   const registerWithEmail = useCallback(async () => {
     setButonText("Loading...");
     if (email === "" || password === "") {
+      setButonText("Register");
       return;
     }
     if (password !== confirm) {
-      alert("Passwords do not match");
+      setButonText("Register");
       return;
     }
 
@@ -42,23 +47,63 @@ export function Register() {
     if (data === 200) {
       router.push("/login");
     } else if (data === 400) {
-      alert("User already exists");
+      setError("User already exists");
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
     } else {
-      alert("Something went wrong");
+      setError("Something went wrong");
     }
 
     setButonText("Register");
   }, [confirm, email, password, router]);
 
+  const emailValidation = useCallback(() => {
+    setError("");
+    const expression = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,}$/i;
+    setValidEmail(expression.test(email));
+  }, [email]);
+
+  const passwordMatch = useCallback(
+    (confirm: string) => {
+      setError("");
+      console.log(password, confirm);
+      password == confirm ? setMatch(true) : setMatch(false);
+    },
+    [password]
+  );
+
   return (
     <Container>
       <RegisterContainer>
         <RegisterHeaderIcon />
+        <Paragraph
+          style={{
+            color: error
+              ? "red"
+              : !validEmail
+              ? "red"
+              : !match
+              ? "red"
+              : "black",
+          }}
+        >
+          {error
+            ? error
+            : !validEmail
+            ? "Please enter a valid email"
+            : !match
+            ? "Passwords do not match"
+            : "Create new account"}
+        </Paragraph>
         <RegisterContent autoComplete={"on"}>
           <Input
             type="email"
             placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              emailValidation();
+            }}
           />
           <Input
             type="password"
@@ -68,7 +113,10 @@ export function Register() {
           <Input
             type="password"
             placeholder="Confirm Password"
-            onChange={(e) => setConfirm(e.target.value)}
+            onChange={(e) => {
+              setConfirm(e.target.value);
+              passwordMatch(e.target.value);
+            }}
           />
 
           <Button

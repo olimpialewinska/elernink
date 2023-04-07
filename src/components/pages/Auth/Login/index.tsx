@@ -12,6 +12,7 @@ import {
   LoginFooter,
   LoginHeaderIcon,
   ParagraphWrapper,
+  Paragraph,
 } from "../style";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -19,6 +20,9 @@ import { useRouter } from "next/navigation";
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [valid, setValid] = useState(true);
+
   const router = useRouter();
 
   const signInWithEmail = useCallback(async () => {
@@ -38,21 +42,42 @@ export function Login() {
 
     const data = await response.json();
     if (data.error) {
-      alert(data.error);
+      setError(data.error);
     } else {
       router.push("/dashboard");
     }
   }, [email, password, router]);
 
+  const emailValidation = useCallback(() => {
+    setError("");
+    const expression = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,}$/i;
+    setValid(expression.test(email));
+  }, [email]);
+
   return (
     <Container>
       <LoginContainer>
         <LoginHeaderIcon />
+        <Paragraph
+          style={{
+            color: error ? "red" : !valid ? "red" : "black",
+          }}
+        >
+          {error
+            ? error
+            : !valid
+            ? "Please enter a valid email address"
+            : "Log in to your account"}
+        </Paragraph>
+
         <LoginContent autoComplete={"on"}>
           <Input
             type="email"
             placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              emailValidation();
+            }}
           />
           <Input
             type="password"

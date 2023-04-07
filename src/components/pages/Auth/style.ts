@@ -102,6 +102,7 @@ export const LoginHeaderIcon = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   margin: 30px;
+  margin-bottom: 10px;
 `;
 
 export const LoginContent = styled.form`
@@ -137,4 +138,11 @@ export const ParagraphWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin: 10px 0;
+`;
+
+export const Paragraph = styled.div`
+  margin: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: red;
 `;
