@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button, Container, Content, Subtitle, Title } from "./style";
 import { Navbar } from "@/components/navbar";
 
-export function HomePgae() {
+export function HomePage() {
   return (
     <Container>
       <Navbar />

@@ -1,3 +1,4 @@
+import { useCallback, useContext } from "react";
 import {
   Navbar,
   Title,
@@ -10,16 +11,24 @@ import {
   Course,
   Text,
 } from "./style";
+import { userContext } from "..";
 
 interface MyCoursesProps {
   close: boolean;
 }
 
 export function MyCourses(props: MyCoursesProps) {
+  const { email } = useContext(userContext);
+
+  const getName = useCallback(() => {
+    const index = email.indexOf("@");
+    return email.slice(0, index);
+  }, [email]);
+
   return (
     <>
       <Navbar>
-        <Title>Hi, Eryk!</Title>
+        <Title>Hi, {getName()}!</Title>
 
         <Search>
           <SearchIcon />

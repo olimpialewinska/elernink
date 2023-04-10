@@ -25,7 +25,9 @@ export async function POST(req: Request) {
   return new Response(JSON.stringify(data), {
     headers: {
       "content-type": "application/json",
-      "Set-Cookie": `Authorization=${data.session?.access_token}; Max-Age=7200; Path=/`,
+      "Set-Cookie": `Authorization=${JSON.stringify(
+        data
+      )}; Max-Age=3600; Path=/`,
     },
   });
 }
