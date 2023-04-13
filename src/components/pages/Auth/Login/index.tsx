@@ -54,6 +54,15 @@ export function Login() {
     setValid(expression.test(email));
   }, [email]);
 
+  const handleKeyDown = useCallback(
+    (e: string) => {
+      if (e === "Enter") {
+        signInWithEmail();
+      }
+    },
+    [signInWithEmail]
+  );
+
   return (
     <Container>
       <LoginContainer>
@@ -82,7 +91,12 @@ export function Login() {
           <Input
             type="password"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              handleKeyDown(e.key);
+            }}
           />
           <Button onClick={signInWithEmail}>Log in</Button>
         </LoginContent>

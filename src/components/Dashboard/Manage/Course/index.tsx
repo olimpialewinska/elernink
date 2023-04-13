@@ -10,8 +10,10 @@ import {
   Description,
 } from "./style";
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 export function CourseComponent(props: Course) {
+  const router = useRouter();
   const handleDelete = useCallback(async () => {
     const data = await fetch("/api/courses/delete", {
       method: "POST",
@@ -23,9 +25,12 @@ export function CourseComponent(props: Course) {
       }),
     });
 
-    const response = await data.json();
-    console.log(response);
-  }, []);
+    const response = data.status;
+
+    if (response === 200) {
+      router.push("/dashboard/manage");
+    }
+  }, [props.id, router]);
   return (
     <CourseDiv>
       <Wrapper>
@@ -54,6 +59,7 @@ export function CourseComponent(props: Course) {
           style={{
             backgroundImage: `url("/delete.png")`,
           }}
+          onClick={handleDelete}
         />
       </Icons>
     </CourseDiv>

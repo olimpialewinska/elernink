@@ -33,13 +33,17 @@ export const Subtitle = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Button = styled.button`
-  width: 150px;
-  background-color: #5882a3;
+export const Button = styled.div`
+  width: 180px;
+  background-image: linear-gradient(
+    0deg,
+    rgba(133, 183, 219, 0.3) 0%,
+    rgba(205, 170, 233, 0.3) 100%
+  );
   margin: 10px;
   border: none;
   font-size: 16px;
-  color: #fff;
+  color: #000;
   padding: 16px;
   outline: none;
   border-radius: 24px;
@@ -47,8 +51,27 @@ export const Button = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s all;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+
+  &:after {
+    content: "";
+    transition: 0.2s opacity;
+    display: block;
+    inset: 0;
+    position: absolute;
+    background-image: linear-gradient(
+      0deg,
+      rgba(133, 183, 219, 0.4) 0%,
+      rgba(205, 170, 233, 0.4) 100%
+    );
+    opacity: 0;
+  }
+
   &:hover {
-    background-color: #3e5f78;
+    &:after {
+      opacity: 1;
+    }
   }
 `;

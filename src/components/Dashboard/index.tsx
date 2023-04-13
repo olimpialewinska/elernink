@@ -22,6 +22,8 @@ import { Settings } from "./Settings";
 import { useRouter } from "next/navigation";
 import { Create } from "./Create";
 import { useCookies } from "react-cookie";
+import { Manage } from "./Manage";
+import { Edit } from "./Manage/Edit";
 
 export const userContext = createContext({ email: "", id: "" });
 
@@ -90,13 +92,23 @@ export function Dashboard() {
               </Item>
 
               {isTeacher && (
-                <Item
-                  onClick={() => {
-                    router.push("/dashboard/create");
-                  }}
-                >
-                  Create a course
-                </Item>
+                <>
+                  <Item
+                    onClick={() => {
+                      router.push("/dashboard/create");
+                    }}
+                  >
+                    Create a course
+                  </Item>
+
+                  <Item
+                    onClick={() => {
+                      router.push("/dashboard/manage");
+                    }}
+                  >
+                    Manage courses
+                  </Item>
+                </>
               )}
               <Item
                 onClick={() => {
@@ -146,6 +158,7 @@ export function Dashboard() {
             {currentCategory === "/dashboard" && <MyCourses close={close} />}
             {currentCategory === "/dashboard/find" && <FindCourse />}
             {currentCategory === "/dashboard/create" && <Create />}
+            {currentCategory === "/dashboard/manage" && <Manage />}
             {currentCategory === "/dashboard/notes" && <Notes />}
             {currentCategory === "/dashboard/files" && <Files />}
             {currentCategory === "/dashboard/settings" && <Settings />}

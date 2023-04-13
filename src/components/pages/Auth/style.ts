@@ -23,7 +23,7 @@ export const RegisterHeaderIcon = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   margin-top: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 `;
 
 export const RegisterContent = styled.form`
@@ -36,24 +36,41 @@ export const RegisterContent = styled.form`
 
 export const Input = styled.input`
   width: 100%;
-  background-color: #ecf1f4;
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.2);
-  margin: 10px;
+
   border: none;
   font-size: 16px;
   padding: 16px;
   outline: none;
-  border-radius: 24px;
+  border-radius: 30px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: 0.5s;
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 export const Button = styled.div`
-  width: 150px;
-  background-color: #5882a3;
+  width: 180px;
+  background-image: linear-gradient(
+    0deg,
+    rgba(133, 183, 219, 0.3) 0%,
+    rgba(205, 170, 233, 0.3) 100%
+  );
   margin: 10px;
   border: none;
   font-size: 16px;
-  color: #fff;
+  color: #000;
   padding: 16px;
   outline: none;
   border-radius: 24px;
@@ -61,15 +78,30 @@ export const Button = styled.div`
   text-transform: uppercase;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s all;
-
   text-align: center;
+  overflow: hidden;
+  position: relative;
+
+  &:after {
+    content: "";
+    transition: 0.2s opacity;
+    display: block;
+    inset: 0;
+    position: absolute;
+    background-image: linear-gradient(
+      0deg,
+      rgba(133, 183, 219, 0.4) 0%,
+      rgba(205, 170, 233, 0.4) 100%
+    );
+    opacity: 0;
+  }
 
   &:hover {
-    background-color: #3e5f78;
+    &:after {
+      opacity: 1;
+    }
   }
 `;
-
 export const Container = styled.div`
   display: flex;
   align-items: center;
@@ -102,7 +134,7 @@ export const LoginHeaderIcon = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   margin: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 `;
 
 export const LoginContent = styled.form`
@@ -141,7 +173,7 @@ export const ParagraphWrapper = styled.div`
 `;
 
 export const Paragraph = styled.div`
-  margin: 10px;
+  margin: 20px 10px;
   font-size: 14px;
   font-weight: 600;
   color: red;
