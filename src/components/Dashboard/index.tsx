@@ -156,7 +156,9 @@ export function Dashboard() {
               />
             )}
             {currentCategory === "/dashboard" && <MyCourses close={close} />}
-            {currentCategory === "/dashboard/find" && <FindCourse />}
+            {currentCategory === "/dashboard/find" && (
+              <FindCourse close={close} />
+            )}
             {currentCategory === "/dashboard/create" && <Create />}
             {currentCategory === "/dashboard/manage" && <Manage />}
             {currentCategory === "/dashboard/notes" && <Notes />}

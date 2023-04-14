@@ -10,6 +10,31 @@ export async function POST(req: Request) {
   const body = await req.json();
   const { id, creator } = body;
 
+  // sprawdz czy creator z bazy zgadza sie z tym z body
+  const { data: data2, error: error2 } = await supabase
+    .from("course")
+    .select("*")
+    .match({
+      id: id,
+      creator: creator,
+    });
+
+  if (error2) {
+    console.log(error2.message);
+    return new Response(JSON.stringify({ error: error2.message }), {
+      status: 401,
+    });
+  }
+
+  if (data2.length === 0) {
+    return new Response(
+      JSON.stringify({ error: "You are not creator of this course" }),
+      {
+        status: 500,
+      }
+    );
+  }
+
   const { data, error } = await supabase
     .from("course")
     .select("*")

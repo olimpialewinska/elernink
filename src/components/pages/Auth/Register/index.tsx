@@ -67,7 +67,7 @@ export function Register() {
   const passwordMatch = useCallback(
     (confirm: string) => {
       setError("");
-      console.log(password, confirm);
+
       password == confirm ? setMatch(true) : setMatch(false);
     },
     [password]

@@ -24,4 +24,10 @@ export const Container = styled.div`
   width: 100%;
   height: 90%;
   padding: 20px;
+  overflow-y: auto;
+
+  //media
+  @media (max-width: 768px) {
+    overflow: none;
+  }
 `;

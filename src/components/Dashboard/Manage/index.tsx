@@ -29,7 +29,6 @@ export function Manage() {
     });
 
     const response = await data.json();
-    console.log(response);
     setCourses(response);
   }, [id]);
 

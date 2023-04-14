@@ -30,6 +30,7 @@ export const Description = styled.div`
   margin-top: 20px;
   font-size: 16px;
   color: #333;
+  flex: 1;
 `;
 
 export const Image = styled.div`
@@ -66,4 +67,81 @@ export const BackArrow = styled.div`
     top: 10px;
     right: 10px;
   }
+`;
+
+export const EditButton = styled.div`
+  width: 18px;
+  height: 18px;
+  background-image: url("/edit.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  margin-left: 14px;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+export const Close = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url("/close.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  margin-left: 14px;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const Save = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url("/check.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  margin-left: 14px;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+export const DescriptionInput = styled.input`
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #333;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+`;
+
+export const NameInput = styled.input`
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #333;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
 `;

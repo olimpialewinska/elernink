@@ -69,7 +69,6 @@ export const Content = styled.div<ContentProps>`
   margin-left: ${(props) => (props.close ? "-20px" : "-380px")};
   border-radius: ${(props) => (props.close ? "20px 0 0 20px" : 0)};
   padding: 30px;
-  padding-bottom: 0;
   box-shadow: -6px -6px 24px 0px rgba(66, 68, 90, 0.2);
   height: ${(props) => (props.close ? "100vh" : "none")};
 
