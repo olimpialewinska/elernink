@@ -14,6 +14,7 @@ import {
   Close,
   DescriptionInput,
   NameInput,
+  Alert,
 } from "./style";
 import { Course } from "@/types";
 import { TopicEdit } from "./Topic";
@@ -35,6 +36,7 @@ export function Edit(props: EditInterface) {
   const [isDescription, setIsDescription] = useState(false);
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const [alert, setAlert] = useState("");
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -94,10 +96,12 @@ export function Edit(props: EditInterface) {
     }
 
     const response = await data.json();
+
     setData(response.data);
     setTopics(response.topics);
     setName(response.data?.[0].name);
     setDescription(response.data?.[0].description);
+    setAlert(response.data?.[0].alert);
   }, [id, props.id, router]);
 
   const handleKeyDown = useCallback(
@@ -196,8 +200,16 @@ export function Edit(props: EditInterface) {
         </Wrapper>
       </Navbar>
       <Container>
+        {alert != "" ? <Alert>{alert}</Alert> : <></>}
         {topics?.map((item: any) => {
-          return <TopicEdit key={item.id} name={item.name} id={item.id} />;
+          return (
+            <TopicEdit
+              key={item.id}
+              topic={item.topic}
+              id={item.id}
+              lesson={item.lesson}
+            />
+          );
         })}
       </Container>
     </>

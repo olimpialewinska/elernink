@@ -13,13 +13,14 @@ import {
 } from "./style";
 
 interface TopicProps {
-  name: string;
+  topic: string;
+  lesson: string;
   id: number;
 }
 
 export function TopicEdit(props: TopicProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState(props.name);
+  const [text, setText] = useState(props.topic);
 
   const [newTopic, setNewTopic] = useState("");
 
@@ -86,7 +87,7 @@ export function TopicEdit(props: TopicProps) {
       <>
         <Topic>
           <Wrapper>
-            <Name>{newTopic === "" ? props.name : newTopic}</Name>
+            <Name>{newTopic === "" ? props.topic : newTopic}</Name>
             <EditButton
               onClick={() => {
                 setIsEditing(true);
@@ -101,10 +102,7 @@ export function TopicEdit(props: TopicProps) {
           />
         </Topic>
         <Content isOpen={isOpen}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. In omnis fuga
-          officia nostrum doloribus laboriosam, iusto quod. Similique, maiores?
-          Expedita molestias nobis, nostrum quas possimus facere ipsa sint totam
-          corporis.
+          {props.lesson}
           <Divider />
         </Content>
       </>

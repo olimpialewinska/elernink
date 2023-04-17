@@ -3,3 +3,9 @@ export interface Course {
   name: string;
   description: string;
 }
+
+export interface TopicInterface {
+  topic: string;
+  lesson: string;
+  id: number;
+}

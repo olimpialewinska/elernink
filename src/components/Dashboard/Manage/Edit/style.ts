@@ -145,3 +145,19 @@ export const NameInput = styled.input`
   font-weight: 600;
   color: #333;
 `;
+
+export const Alert = styled.div`
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 30px;
+  margin: 10px 0;
+  background-color: rgba(255, 106, 106, 0.42);
+  border-radius: 10px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+  z-index: 30;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+`;

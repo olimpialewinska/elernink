@@ -48,6 +48,29 @@ export const NameInput = styled.input`
     margin-bottom: 20px;
   }
 `;
+export const AlertInput = styled.input`
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  padding: 16px;
+  outline: none;
+  border-radius: 30px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 8px;
+  transition: 0.5s;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+`;
 export const CodeInput = styled.input`
   width: 200px;
   border: none;
@@ -181,12 +204,14 @@ export const Topic = styled.div`
 `;
 
 export const TopicTitle = styled.input`
+  width: 100%;
   outline: none;
   border: none;
   border-bottom: 1px solid #333;
   font-size: 18px;
   font-weight: 600;
   color: #333;
+  background-color: transparent;
 `;
 
 export const Content = styled.div`
