@@ -46,5 +46,23 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ data: data }), {
       status: 200,
     });
+  } else if (type === "alert") {
+    const { data, error } = await supabase
+      .from("course")
+      .update({
+        alert: value,
+      })
+      .eq("id", id);
+
+    if (error) {
+      console.log(error.message);
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 401,
+      });
+    }
+
+    return new Response(JSON.stringify({ data: data }), {
+      status: 200,
+    });
   }
 }

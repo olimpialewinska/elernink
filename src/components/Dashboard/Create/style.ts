@@ -19,6 +19,10 @@ export const Title = styled.div`
 `;
 
 export const Container = styled.div`
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -110,6 +114,7 @@ export const DescriptionInput = styled.textarea`
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   resize: vertical;
+  white-space: pre-line;
 
   @media (max-width: 768px) {
     width: 90%;
@@ -254,6 +259,7 @@ export const LessonContent = styled.textarea`
   resize: vertical;
   color: #333;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  white-space: pre-line;
 
   @media (max-width: 768px) {
     width: 90%;

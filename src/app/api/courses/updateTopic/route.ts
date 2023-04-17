@@ -8,24 +8,43 @@ const supabase = createClient(
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { id, name } = body;
+  const { id, value, type } = body;
 
-  //update topic
-  const { data, error } = await supabase
-    .from("topic")
-    .update({
-      name: name,
-    })
-    .eq("id", id);
+  if (type === "lesson") {
+    const { data, error } = await supabase
+      .from("topic")
+      .update({
+        lesson: value,
+      })
+      .eq("id", id);
 
-  if (error) {
-    console.log(error.message);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 401,
+    if (error) {
+      console.log(error.message);
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 401,
+      });
+    }
+
+    return new Response(JSON.stringify({ data: data }), {
+      status: 200,
+    });
+  } else if (type === "topic") {
+    const { data, error } = await supabase
+      .from("topic")
+      .update({
+        topic: value,
+      })
+      .eq("id", id);
+
+    if (error) {
+      console.log(error.message);
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 401,
+      });
+    }
+
+    return new Response(JSON.stringify({ data: data }), {
+      status: 200,
     });
   }
-
-  return new Response(JSON.stringify({ data: data }), {
-    status: 200,
-  });
 }

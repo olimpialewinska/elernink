@@ -64,29 +64,6 @@ export const Text = styled.div`
   color: rgba(0, 0, 0, 0.7);
 `;
 
-export const Statistics = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  padding: 20px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-`;
-
-export const Box = styled.div`
-  flex-grow: 0.25;
-  border-radius: 10px;
-  padding: 20px;
-  background: linear-gradient(
-    45deg,
-    rgba(185, 203, 255, 1) 0%,
-    rgba(101, 157, 255, 1) 100%
-  );
-  height: 100px;
-`;
-
 export const Courses = styled.div<ContentProps>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);

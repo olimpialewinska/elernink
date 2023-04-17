@@ -161,3 +161,14 @@ export const Alert = styled.div`
   font-weight: 600;
   color: #333;
 `;
+
+export const AlertInput = styled.input`
+  width: 100%;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #333;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  background-color: transparent;
+`;

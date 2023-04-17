@@ -10,6 +10,8 @@ import {
   Save,
   Content,
   Divider,
+  Input,
+  DeleteButton,
 } from "./style";
 
 interface TopicProps {
@@ -26,6 +28,10 @@ export function TopicEdit(props: TopicProps) {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const [lesson, setLesson] = useState(props.lesson);
+  const [isLesson, setIsLesson] = useState(false);
+  const [newLesson, setNewLesson] = useState("");
+
   const updateTopic = useCallback(async () => {
     const data = await fetch(`/api/courses/updateTopic`, {
       method: "POST",
@@ -34,7 +40,8 @@ export function TopicEdit(props: TopicProps) {
       },
       body: JSON.stringify({
         id: props.id,
-        name: text,
+        value: text,
+        type: "topic",
       }),
     });
 
@@ -43,6 +50,42 @@ export function TopicEdit(props: TopicProps) {
       setNewTopic(text);
     }
   }, [props.id, text]);
+
+  const updateLesson = useCallback(async () => {
+    const data = await fetch(`/api/courses/updateTopic`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: props.id,
+        value: lesson,
+        type: "lesson",
+      }),
+    });
+
+    if (data.status === 200) {
+      setIsLesson(false);
+      setNewLesson(lesson);
+    }
+  }, [props.id, lesson]);
+
+  const deleteTopic = useCallback(async () => {
+    const data = await fetch(`/api/courses/deleteTopic`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: props.id,
+      }),
+    });
+
+    if (data.status === 200) {
+      window.location.reload();
+    }
+  }, [props.id]);
+
   const handleKeyDown = useCallback(
     (e: string) => {
       if (e === "Enter") {
@@ -93,6 +136,7 @@ export function TopicEdit(props: TopicProps) {
                 setIsEditing(true);
               }}
             />
+            <DeleteButton onClick={deleteTopic} />
           </Wrapper>
 
           <ArrowDown
@@ -101,10 +145,38 @@ export function TopicEdit(props: TopicProps) {
             }}
           />
         </Topic>
-        <Content isOpen={isOpen}>
-          {props.lesson}
-          <Divider />
-        </Content>
+        {isLesson ? (
+          <Content isOpen={isOpen}>
+            <Input
+              value={lesson}
+              onChange={(e) => {
+                setLesson(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                handleKeyDown(e.key);
+              }}
+            />
+            <Save
+              onClick={() => {
+                updateLesson();
+              }}
+            />
+            <Close
+              onClick={() => {
+                setIsLesson(false);
+              }}
+            />
+          </Content>
+        ) : (
+          <Content isOpen={isOpen}>
+            {newLesson === "" ? props.lesson : newLesson}
+            <EditButton
+              onClick={() => {
+                setIsLesson(true);
+              }}
+            />
+          </Content>
+        )}
       </>
     );
   }

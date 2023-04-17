@@ -7,7 +7,7 @@ export const Topic = styled.div`
   justify-content: space-between;
   padding: 20px 30px;
   margin: 10px 0;
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: #ebebeb;
   border-radius: 10px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
   z-index: 30;
@@ -30,7 +30,6 @@ export const TopicTitle = styled.input`
 
 export const Content = styled.div`
   width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +41,6 @@ export const Content = styled.div`
   border-radius: 0 0 10px 10px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   transition: height 0.3s;
-
   z-index: 2;
 
   @media (max-width: 768px) {
@@ -68,6 +66,7 @@ export const LessonContent = styled.textarea`
   resize: vertical;
   color: #333;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  white-space: pre-line;
 
   @media (max-width: 768px) {
     width: 90%;
@@ -113,6 +112,7 @@ export const Input = styled.textarea`
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   resize: vertical;
+  white-space: pre-line;
 
   @media (max-width: 768px) {
     width: 90%;
@@ -126,4 +126,8 @@ export const Input = styled.textarea`
 
 export const Wrapper = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;

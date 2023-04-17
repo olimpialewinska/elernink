@@ -15,6 +15,7 @@ import {
   DescriptionInput,
   NameInput,
   Alert,
+  AlertInput,
 } from "./style";
 import { Course } from "@/types";
 import { TopicEdit } from "./Topic";
@@ -37,6 +38,8 @@ export function Edit(props: EditInterface) {
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [alert, setAlert] = useState("");
+  const [isAlert, setIsAlert] = useState(false);
+  const [newAlert, setNewAlert] = useState("");
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -59,6 +62,25 @@ export function Edit(props: EditInterface) {
       setNewName(name);
     }
   }, [name, props.id]);
+
+  const updateAlert = useCallback(async () => {
+    const data = await fetch(`/api/courses/updateCourse`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: props.id,
+        value: alert,
+        type: "alert",
+      }),
+    });
+
+    if (data.status === 200) {
+      setIsAlert(false);
+      setNewAlert(alert);
+    }
+  }, [alert, props.id]);
 
   const updateDescription = useCallback(async () => {
     const data = await fetch(`/api/courses/updateCourse`, {
@@ -109,9 +131,10 @@ export function Edit(props: EditInterface) {
       if (e === "Enter") {
         if (type === "name") updateName();
         if (type === "description") updateDescription();
+        if (type === "alert") updateAlert();
       }
     },
-    [updateDescription, updateName]
+    [updateAlert, updateDescription, updateName]
   );
 
   useEffect(() => {
@@ -200,7 +223,40 @@ export function Edit(props: EditInterface) {
         </Wrapper>
       </Navbar>
       <Container>
-        {alert != "" ? <Alert>{alert}</Alert> : <></>}
+        {isAlert ? (
+          <Alert>
+            <AlertInput
+              type="text"
+              value={alert}
+              onChange={(e) => {
+                setAlert(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                handleKeyDown(e.key, "alert");
+              }}
+            />
+            <Save
+              onClick={() => {
+                updateAlert();
+              }}
+            />
+            <Close
+              onClick={() => {
+                setIsAlert(false);
+              }}
+            />
+          </Alert>
+        ) : (
+          <Alert>
+            {newAlert === "" ? alert : newAlert}
+            <EditButton
+              onClick={() => {
+                setIsAlert(true);
+              }}
+            />
+          </Alert>
+        )}
+
         {topics?.map((item: any) => {
           return (
             <TopicEdit

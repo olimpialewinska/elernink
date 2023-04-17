@@ -11,7 +11,7 @@ export const Topic = styled.div`
   justify-content: space-between;
   padding: 20px 30px;
   margin: 10px 0;
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: #ebebeb;
   border-radius: 10px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
   z-index: 30;
@@ -21,6 +21,10 @@ export const Name = styled.div`
   font-size: 18px;
   font-weight: 600;
   color: #333;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 
   @media (max-width: 768px) {
     font-size: 16px;
@@ -48,13 +52,13 @@ export const ArrowDown = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   flex: 1;
 `;
 
 export const EditButton = styled.div`
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background-image: url("/edit.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -114,9 +118,7 @@ export const NameInput = styled.input`
 export const Content = styled.div<Content>`
   width: 90%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
   padding: 20px 30px;
   margin-top: -14px;
   margin-bottom: 20px;
@@ -138,4 +140,51 @@ export const Divider = styled.div`
   height: 1px;
   background-color: rgba(0, 0, 0, 0.1);
   margin: 20px 0;
+`;
+
+export const Input = styled.textarea`
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  padding: 16px;
+  outline: none;
+  border-radius: 30px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 8px;
+  transition: 0.5s;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  resize: vertical;
+  white-space: pre-line;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+`;
+
+export const DeleteButton = styled.div`
+  width: 20px;
+  height: 20px;
+  background-image: url("/delete.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  margin-left: 14px;
+  margin-right: 14px;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
