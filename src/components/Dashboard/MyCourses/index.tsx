@@ -12,6 +12,7 @@ import {
 import { userContext } from "..";
 import { Course } from "@/types";
 import { CourseCard } from "./CourseCard";
+import { Loader } from "@/components/Loader";
 
 interface MyCoursesProps {
   close: boolean;
@@ -22,8 +23,10 @@ export function MyCourses(props: MyCoursesProps) {
   const [courses, setCourses] = useState<any>();
   const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const getMyCourses = useCallback(async () => {
+    setLoading(true);
     const data = await fetch(`/api/courses/dashboardCourses`, {
       method: "POST",
       headers: {
@@ -37,6 +40,7 @@ export function MyCourses(props: MyCoursesProps) {
     if (data.status == 200) {
       const response = await data.json();
       setCourses(response);
+      setLoading(false);
       return;
     }
 
@@ -90,17 +94,27 @@ export function MyCourses(props: MyCoursesProps) {
 
       <Text>My Courses</Text>
 
-      <Courses close={props.close}>
-        {error ? (
-          <Error>Something went wrong</Error>
-        ) : courses ? (
-          courses.map((course: Course) => (
-            <CourseCard key={course.id} course={course} />
-          ))
-        ) : (
-          <></>
-        )}
-      </Courses>
+      {loading ? (
+        <Error
+          style={{
+            color: "#000",
+          }}
+        >
+          <Loader />
+        </Error>
+      ) : error ? (
+        <Error>Something went wrong</Error>
+      ) : courses ? (
+        <>
+          <Courses close={props.close}>
+            {courses.map((course: Course) => (
+              <CourseCard key={course.id} course={course} />
+            ))}
+          </Courses>
+        </>
+      ) : (
+        <Error>Something went wrong</Error>
+      )}
     </>
   );
 }

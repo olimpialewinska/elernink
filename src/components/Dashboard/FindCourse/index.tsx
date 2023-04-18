@@ -9,10 +9,12 @@ import {
   SearchInput,
   Title,
   Error,
+  Wrapper,
 } from "./style";
 import { Course } from "@/types";
 import { MyModal } from "./Modal";
 import { userContext } from "..";
+import { Loader } from "@/components/Loader";
 
 interface FindProps {
   close: boolean;
@@ -27,6 +29,8 @@ export function FindCourse(props: FindProps) {
   const [show, setShow] = useState(false);
   const [currentCourse, setCurrentCourse] = useState<Course>({} as Course);
 
+  const [loading, setLoading] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = (course: Course) => () => {
     setCurrentCourse(course);
@@ -34,6 +38,7 @@ export function FindCourse(props: FindProps) {
   };
 
   const getCourses = useCallback(async () => {
+    setLoading(true);
     const data = await fetch("/api/courses/findCourse", {
       method: "POST",
       headers: {
@@ -48,6 +53,7 @@ export function FindCourse(props: FindProps) {
       setError(false);
       const response = await data.json();
       setCourses(response);
+      setLoading(false);
       return;
     }
 
@@ -96,26 +102,30 @@ export function FindCourse(props: FindProps) {
           <SearchIcon />
         </Search>
 
-        <Content
-          close={props.close}
-          style={{
-            display: error ? "flex" : "grid",
-          }}
-        >
-          {error ? (
-            <Error>Something went wrong</Error>
-          ) : courses ? (
-            courses.map((course: Course) => (
+        {loading ? (
+          <Wrapper>
+            <Loader />
+          </Wrapper>
+        ) : error ? (
+          <Error>Something went wrong</Error>
+        ) : courses ? (
+          <Content
+            close={props.close}
+            style={{
+              display: error ? "flex" : "grid",
+            }}
+          >
+            {courses.map((course: Course) => (
               <CourseCard
                 key={course.id}
                 course={course}
                 onClick={handleShow(course)}
               />
-            ))
-          ) : (
-            <></>
-          )}
-        </Content>
+            ))}
+          </Content>
+        ) : (
+          <Error>Something went wrong</Error>
+        )}
       </Container>
       <MyModal visible={show} hide={handleClose} course={currentCourse} />
     </>

@@ -26,6 +26,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
 `;
 
 export const Search = styled.div`
@@ -108,4 +109,11 @@ export const Error = styled.div`
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-top: 20px;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 `;

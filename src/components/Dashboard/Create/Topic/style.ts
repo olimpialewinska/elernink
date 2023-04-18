@@ -21,7 +21,6 @@ export const TopicTitle = styled.input`
   width: 100%;
   outline: none;
   border: none;
-  border-bottom: 1px solid #333;
   font-size: 18px;
   font-weight: 600;
   color: #333;
@@ -38,7 +37,7 @@ export const Content = styled.div`
   margin-top: -14px;
   margin-bottom: 20px;
   background-color: #fff;
-  border-radius: 0 0 10px 10px;
+  /* border-radius: 0 0 10px 10px; */
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   transition: height 0.3s;
   z-index: 2;
