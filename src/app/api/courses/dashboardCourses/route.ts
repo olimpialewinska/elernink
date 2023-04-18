@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   const { data, error } = await supabase
     .from("course")
     .select("*")
-    .eq("id", courseIds)
+    .filter("id", "in", `(${courseIds})`)
     .neq("creator", userId)
     .order("id", { ascending: false });
 

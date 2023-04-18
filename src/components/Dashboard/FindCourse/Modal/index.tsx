@@ -59,7 +59,7 @@ function MyModal(props: MyModalProps) {
   const handleSubmit = useCallback(() => {
     if (props.course.code == code) {
       setValid(true);
-      handleSignUp;
+      handleSignUp();
     } else {
       setValid(false);
     }
