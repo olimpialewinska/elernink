@@ -1,7 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Course } from "@/types";
-import { Container, Description, Title, TitleBox, Image } from "./style";
+import {
+  Container,
+  Description,
+  Title,
+  TitleBox,
+  Image,
+  MenuButton,
+  Menu,
+  MenuItem,
+} from "./style";
 import { useRouter } from "next/navigation";
+import { useCallback, useContext, useState } from "react";
+import { userContext } from "../..";
 
 interface CourseProps {
   course: Course;
@@ -9,7 +20,27 @@ interface CourseProps {
 }
 
 export function CourseCard(props: CourseProps) {
+  const { id } = useContext(userContext);
   const router = useRouter();
+  const [menu, setMenu] = useState(false);
+
+  const leaveCourse = useCallback(async () => {
+    const data = await fetch(`/api/courses/leaveCourse`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        courseId: props.course.id,
+        userId: id,
+      }),
+    });
+    if (data.status === 200) {
+      window.location.reload();
+    }
+
+    setMenu(false);
+  }, [id, props.course.id]);
   return (
     <Container
       onClick={() => {
@@ -17,6 +48,28 @@ export function CourseCard(props: CourseProps) {
       }}
     >
       <Image />
+      <MenuButton
+        onClick={(e) => {
+          e.stopPropagation();
+          setMenu(!menu);
+        }}
+      />
+      {menu ? (
+        <Menu
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <MenuItem
+            onClick={(e) => {
+              e.stopPropagation();
+              leaveCourse();
+            }}
+          >
+            Leave Course
+          </MenuItem>
+        </Menu>
+      ) : null}
       <TitleBox>
         <Title>{props.course.name}</Title>
         <Description>
