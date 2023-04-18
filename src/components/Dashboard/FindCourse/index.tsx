@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { CourseCard } from "./CourseCard";
 import {
   Container,
@@ -11,15 +11,27 @@ import {
   Error,
 } from "./style";
 import { Course } from "@/types";
+import { MyModal } from "./Modal";
+import { userContext } from "..";
 
 interface FindProps {
   close: boolean;
 }
 
 export function FindCourse(props: FindProps) {
+  const { id } = useContext(userContext);
   const [courses, setCourses] = useState<any>();
   const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
+
+  const [show, setShow] = useState(false);
+  const [currentCourse, setCurrentCourse] = useState<Course>({} as Course);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (course: Course) => () => {
+    setCurrentCourse(course);
+    setShow(true);
+  };
 
   const getCourses = useCallback(async () => {
     const data = await fetch("/api/courses/findCourse", {
@@ -27,6 +39,9 @@ export function FindCourse(props: FindProps) {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        userId: id,
+      }),
     });
 
     if (data.status == 200) {
@@ -90,13 +105,18 @@ export function FindCourse(props: FindProps) {
             <Error>Something went wrong</Error>
           ) : courses ? (
             courses.map((course: Course) => (
-              <CourseCard key={course.id} course={course} />
+              <CourseCard
+                key={course.id}
+                course={course}
+                onClick={handleShow(course)}
+              />
             ))
           ) : (
             <></>
           )}
         </Content>
       </Container>
+      <MyModal visible={show} hide={handleClose} course={currentCourse} />
     </>
   );
 }

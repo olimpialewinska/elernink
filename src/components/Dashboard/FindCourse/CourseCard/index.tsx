@@ -4,11 +4,12 @@ import { Container, Description, Title, TitleBox, Image } from "./style";
 interface CourseProps {
   course: Course;
   key: string;
+  onClick: () => void;
 }
 
 export function CourseCard(props: CourseProps) {
   return (
-    <Container>
+    <Container onClick={props.onClick}>
       <Image />
       <TitleBox>
         <Title>{props.course.name}</Title>
