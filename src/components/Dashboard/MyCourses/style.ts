@@ -94,3 +94,17 @@ export const Course = styled.div`
   border-radius: 10px;
   padding: 20px;
 `;
+
+export const Error = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: red;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 20px;
+`;
