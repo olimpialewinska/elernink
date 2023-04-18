@@ -52,7 +52,8 @@ export function FindCourse(props: FindProps) {
     }
 
     setError(true);
-  }, []);
+  }, [id]);
+
   const filterList = useCallback(
     (search: string) => {
       if (search != "") {
