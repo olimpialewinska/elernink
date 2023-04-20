@@ -2335,6 +2335,14 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-drag-drop-files@^2.3.9:
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/react-drag-drop-files/-/react-drag-drop-files-2.3.9.tgz#12d27d0eb8f9f598feb684848e0cd9519842f041"
+  integrity sha512-4O61sC2sDJC+kAL8tQqHlOlinYBhovyZEzCPUVq9C0JTz98I4KgCSGnIpqDZsV2B5kznGByMK6u2AWjWrZH6iw==
+  dependencies:
+    prop-types "^15.7.2"
+    styled-components "^5.3.0"
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -2607,7 +2615,7 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-styled-components@^5.3.9:
+styled-components@^5.3.0, styled-components@^5.3.9:
   version "5.3.9"
   resolved "https://registry.npmjs.org/styled-components/-/styled-components-5.3.9.tgz"
   integrity sha512-Aj3kb13B75DQBo2oRwRa/APdB5rSmwUfN5exyarpX+x/tlM/rwZA2vVk2vQgVSP6WKaZJHWwiFrzgHt+CLtB4A==

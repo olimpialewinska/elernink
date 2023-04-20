@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FileComponent } from "./File";
 import {
   Navbar,
@@ -12,8 +13,14 @@ import {
   Wrapper,
   Button,
 } from "./style";
+import { FileModal } from "./Modal";
 
 export function Files() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+  };
   return (
     <>
       <Navbar>
@@ -26,7 +33,7 @@ export function Files() {
 
       <Container>
         <Filterbar>
-          <AddButton>+ Add file</AddButton>
+          <AddButton onClick={handleShow}>+ Add file</AddButton>
           <Wrapper>
             <Button>
               <FilterIcon
@@ -53,6 +60,7 @@ export function Files() {
         <FileComponent />
         <FileComponent />
         <FileComponent />
+        <FileModal visible={show} hide={handleClose} />
       </Container>
     </>
   );

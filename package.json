@@ -24,6 +24,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-drag-drop-files": "^2.3.9",
     "slate": "^0.93.0",
     "slate-react": "^0.93.0",
     "supabase": "^1.47.2",

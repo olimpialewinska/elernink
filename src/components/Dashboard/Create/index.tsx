@@ -137,6 +137,10 @@ export function Create() {
 
   const handleCreate = useCallback(async () => {
     setButton("Loading...");
+    if (name == "") {
+      setButton("Create");
+      return;
+    }
     const response = await fetch("/api/courses/createCourse", {
       method: "POST",
       headers: {
@@ -184,7 +188,7 @@ export function Create() {
     <>
       <Navbar>
         <Title>Create</Title>
-        <CreateButton onClick={handleCreate}>Create</CreateButton>
+        <CreateButton onClick={handleCreate}>{button}</CreateButton>
       </Navbar>
       <Container>
         <Box>

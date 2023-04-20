@@ -28,9 +28,9 @@ export function CourseComponent(props: Course) {
     const response = data.status;
 
     if (response === 200) {
-      router.push("/dashboard/manage");
+      window.location.reload();
     }
-  }, [props.id, router]);
+  }, [props.id]);
   return (
     <CourseDiv>
       <Wrapper>
