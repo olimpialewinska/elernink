@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   }
   const { data: storage, error: storageError } = await supabase.storage
     .from("files")
-    .remove([`${userId.id}/${fileName}`]);
+    .remove([`${userId}/${fileName}`]);
 
   if (storageError) {
     console.log(error);
