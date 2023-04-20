@@ -10,3 +10,9 @@ export interface TopicInterface {
   lesson: string;
   id: number;
 }
+
+export interface FileInterface {
+  id: string;
+  name: string;
+  url: string;
+}

@@ -40,11 +40,17 @@ export const Icon = styled.div`
   }
 `;
 
-export const Name = styled.div``;
+export const Name = styled.div`
+  flex: 1;
+  overflow: auto;
+  padding: 6px;
+`;
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  width: 70%;
 `;

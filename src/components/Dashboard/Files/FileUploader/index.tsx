@@ -35,13 +35,18 @@ export function DragDropFile() {
     []
   );
 
-  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-    }
-  }, []);
+  const handleDrop = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActive(false);
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        const newFiles = [...files, ...Array.from(e.dataTransfer.files)];
+        setFiles(newFiles);
+      }
+    },
+    [files]
+  );
 
   const onButtonClick = useCallback(() => {
     inputRef.current?.click();
@@ -57,6 +62,9 @@ export function DragDropFile() {
   );
 
   const handleUpload = useCallback(async () => {
+    if (!files) {
+      return;
+    }
     const formData = new FormData();
     formData.append(
       "userId",
@@ -88,6 +96,18 @@ export function DragDropFile() {
         onSubmit={(e) => e.preventDefault()}
       >
         <Input
+          accept="
+          .doc,
+          .docx,
+          .pdf,
+          .txt,
+          .xls,
+          .xlsx,
+          .ppt,
+          .pptx,
+          .csv,
+          
+          "
           ref={inputRef}
           type="file"
           multiple={true}

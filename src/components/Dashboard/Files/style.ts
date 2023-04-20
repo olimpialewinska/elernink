@@ -103,7 +103,6 @@ export const FilterIcon = styled.div`
 export const Button = styled.div`
   width: 40px;
   height: 40px;
-  background: rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -118,4 +117,11 @@ export const Button = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+export const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;

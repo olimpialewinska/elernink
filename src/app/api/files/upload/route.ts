@@ -11,19 +11,21 @@ export async function POST(req: Request) {
   const userIdString = files.get("userId") as string;
 
   const userId = JSON.parse(userIdString);
-  console.log(userId.id);
 
-  files.forEach(async (file: any) => {
-    const path = `${userId.id}/${file.name}`;
-    console.log(path);
+  for (var pair of files.entries()) {
+    if (pair[0] == "userId") {
+      continue;
+    }
+
+    const newName = pair[1].name.replace(/[^a-zA-Z0-9.]/g, "");
+    const path = `${userId.id}/${newName}`;
     const { data, error } = await supabase.storage
       .from("files")
-      .upload(path, file, {
+      .upload(path, pair[1], {
         cacheControl: "3600",
         upsert: false,
       });
     if (error) {
-      console.log(error.message);
       return new Response(JSON.stringify({ error: error.message }), {
         status: 401,
       });
@@ -33,20 +35,19 @@ export async function POST(req: Request) {
       .from("files")
       .insert([
         {
-          name: file.name,
+          name: newName,
           url: data.path,
-          size: file.size,
-          type: file.type,
+          size: pair[1].size,
+          type: pair[1].type,
           userId: userId.id,
         },
       ]);
     if (fileError) {
-      console.log(fileError.message);
       return new Response(JSON.stringify({ error: fileError.message }), {
         status: 401,
       });
     }
-  });
+  }
 
   return new Response(JSON.stringify({ data: "success" }), {
     status: 200,
