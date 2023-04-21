@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./globals.css";
+import "quill/dist/quill.bubble.css";
 
 export const metadata = {
   title: "Create Next App",

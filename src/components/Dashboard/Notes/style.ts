@@ -118,3 +118,13 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
+
+export const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  overflow: auto;
+  flex: 1;
+`;

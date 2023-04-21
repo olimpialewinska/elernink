@@ -157,16 +157,18 @@ export function Files() {
             <Loader />
           </LoaderWrapper>
         ) : (
-          files?.map((file: FileInterface) => {
-            return (
-              <FileComponent
-                key={file.url}
-                name={file.name}
-                url={file.url}
-                id={file.id}
-              />
-            );
-          })
+          <LoaderWrapper>
+            {files?.map((file: FileInterface) => {
+              return (
+                <FileComponent
+                  key={file.url}
+                  name={file.name}
+                  url={file.url}
+                  id={file.id}
+                />
+              );
+            })}
+          </LoaderWrapper>
         )}
 
         <FileModal visible={show} hide={handleClose} />

@@ -5,7 +5,7 @@ export const File = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 50px;
+  height: 50px !important;
   padding: 0 20px;
   border-radius: 8px;
   margin-bottom: 10px;

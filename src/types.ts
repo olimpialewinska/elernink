@@ -16,3 +16,10 @@ export interface FileInterface {
   name: string;
   url: string;
 }
+
+export interface NoteInterface {
+  id: string;
+  name: string;
+  value: string;
+  userId: string;
+}

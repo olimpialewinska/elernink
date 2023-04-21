@@ -124,4 +124,7 @@ export const LoaderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  flex-direction: column;
+  overflow: auto;
+  flex: 1;
 `;
