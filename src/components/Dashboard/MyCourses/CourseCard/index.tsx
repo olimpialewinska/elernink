@@ -47,7 +47,15 @@ export function CourseCard(props: CourseProps) {
         router.push(`/dashboard/course/${props.course.id}`);
       }}
     >
-      <Image />
+      <Image
+        style={{
+          backgroundImage: props.course.image
+            ? `url(${props.course.image})`
+            : "none",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
       <MenuButton
         onClick={(e) => {
           e.stopPropagation();

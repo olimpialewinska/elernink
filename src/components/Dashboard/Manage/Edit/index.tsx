@@ -40,9 +40,10 @@ export function Edit(props: EditInterface) {
   const [alert, setAlert] = useState("");
   const [isAlert, setIsAlert] = useState(false);
   const [newAlert, setNewAlert] = useState("");
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const [image, setImage] = useState("");
 
   const updateName = useCallback(async () => {
     const data = await fetch(`/api/courses/updateCourse`, {
@@ -119,11 +120,14 @@ export function Edit(props: EditInterface) {
 
     const response = await data.json();
 
+    console.log(response);
+
     setData(response.data);
     setTopics(response.topics);
     setName(response.data?.[0].name);
     setDescription(response.data?.[0].description);
     setAlert(response.data?.[0].alert);
+    setImage(response.imageUrl);
   }, [id, props.id, router]);
 
   const handleKeyDown = useCallback(
@@ -149,7 +153,13 @@ export function Edit(props: EditInterface) {
             window.history.back();
           }}
         />
-        <Image />
+        <Image
+          style={{
+            backgroundImage: image ? `url(${image})` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
         <Wrapper>
           {isName ? (
             <Row>

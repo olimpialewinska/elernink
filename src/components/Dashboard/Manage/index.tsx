@@ -33,6 +33,7 @@ export function Manage() {
 
     const response = await data.json();
     setCourses(response);
+
     setLoading(false);
   }, [id]);
 
@@ -59,6 +60,7 @@ export function Manage() {
                 name={course.name}
                 description={course.description}
                 code={course.code}
+                image={course.image}
               />
             );
           })

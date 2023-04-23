@@ -80,7 +80,15 @@ function MyModal(props: MyModalProps) {
       >
         <Container>
           <Navbar>
-            <Image />
+            <Image
+              style={{
+                backgroundImage: props.course.image
+                  ? `url(${props.course.image})`
+                  : "none",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
             <Wrapper>
               <Row>
                 <Title>{props.course.name}</Title>

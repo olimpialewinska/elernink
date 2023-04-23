@@ -46,6 +46,14 @@ export async function POST(req: Request) {
     });
   }
 
+  let imageUrl: string | null = "";
+  if (data[0].photoPath) {
+    imageUrl = supabase.storage.from("photos").getPublicUrl(data[0].photoPath)
+      .data.publicUrl;
+  } else {
+    imageUrl = null;
+  }
+
   const { data: topics, error: errorTopics } = await supabase
     .from("topic")
     .select("*")
@@ -58,9 +66,16 @@ export async function POST(req: Request) {
     });
   }
 
-  return new Response(JSON.stringify({ data, topics }), {
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+  return new Response(
+    JSON.stringify({
+      data,
+      topics,
+      imageUrl,
+    }),
+    {
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
 }

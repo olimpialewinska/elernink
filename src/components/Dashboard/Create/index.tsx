@@ -12,7 +12,6 @@ import {
   Box,
   Container,
   CreateButton,
-  DeleteButton,
   DescriptionInput,
   IdentityBox,
   ImageInput,
@@ -23,17 +22,26 @@ import {
   Wrapper,
   CodeInput,
   AlertInput,
+  AddImageButton,
+  NameCont,
 } from "./style";
 import { TopicItem } from "./Topic";
 import { TopicInterface } from "@/types";
 import { userContext } from "..";
 import { useRouter } from "next/navigation";
+import { ImageModal } from "./ImageModal";
 
 interface Topic {
   name: string;
   lesson: string;
   order: number;
   listOfFiles: File[];
+}
+
+interface ImageInterface {
+  image: File | undefined;
+  deleteImage: () => void;
+  addImage: (image: File) => void;
 }
 
 interface listContextInterface {
@@ -50,6 +58,8 @@ interface listContextInterface {
   setList: Dispatch<SetStateAction<TopicInterface[]>>;
   addFileList: (index: number, file: File[]) => void;
 }
+
+export const imageContext = createContext({} as ImageInterface);
 
 export const listContext = createContext({} as listContextInterface);
 
@@ -71,8 +81,15 @@ export function Create() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState<File>();
   const [code, setCode] = useState("");
   const [alert, setAlert] = useState("");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+  };
 
   const dragStart = useCallback(
     (e: DragEvent<HTMLDivElement>, position: number) => {
@@ -154,6 +171,19 @@ export function Create() {
     []
   );
 
+  const addImage = useCallback(
+    (imageFile: File) => {
+      setImage(imageFile);
+      console.log(image);
+    },
+    [image]
+  );
+
+  const deleteImage = useCallback(() => {
+    setImage(undefined);
+    console.log(image);
+  }, [image]);
+
   const handleCreate = useCallback(async () => {
     setButton("Loading...");
     if (name == "") {
@@ -180,6 +210,24 @@ export function Create() {
     }
 
     const courseData = await response.json();
+
+    console.log(image);
+
+    if (image) {
+      const formData = new FormData();
+      formData.append("courseId", courseData[0].id);
+      formData.append("image", image);
+
+      const response = await fetch("/api/photos/addCoursePhoto", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.status !== 200) {
+        setButton("Create");
+        return;
+      }
+    }
 
     for (const index in list) {
       const topic = list[index].topic;
@@ -226,7 +274,7 @@ export function Create() {
     }
     setButton("Create");
     router.push(`/dashboard/manage/edit/${courseData[0].id}`);
-  }, [alert, code, description, id, list, name, router]);
+  }, [alert, code, description, id, image, list, name, router]);
 
   return (
     <>
@@ -243,14 +291,16 @@ export function Create() {
                 required
                 onChange={(e) => setName(e.target.value)}
               />
-              <CodeInput
-                placeholder="Course code"
-                required
-                onChange={(e) => setCode(e.target.value)}
-              />
+              <NameCont>
+                <CodeInput
+                  placeholder="Course code"
+                  required
+                  onChange={(e) => setCode(e.target.value)}
+                />
+                <AddImageButton onClick={handleShow} />
+              </NameCont>
             </Wrapper>
 
-            <ImageInput type="file" />
             <DescriptionInput
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
@@ -282,6 +332,15 @@ export function Create() {
           </listContext.Provider>
         </Box>
       </Container>
+      <imageContext.Provider
+        value={{
+          image,
+          addImage,
+          deleteImage,
+        }}
+      >
+        <ImageModal visible={show} hide={handleClose} />
+      </imageContext.Provider>
     </>
   );
 }

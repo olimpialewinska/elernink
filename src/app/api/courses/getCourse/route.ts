@@ -21,6 +21,13 @@ export async function POST(req: Request) {
       status: 401,
     });
   }
+  let imageUrl: string | null = "";
+  if (data[0].photoPath) {
+    imageUrl = supabase.storage.from("photos").getPublicUrl(data[0].photoPath)
+      .data.publicUrl;
+  } else {
+    imageUrl = null;
+  }
 
   const { data: topics, error: errorTopics } = await supabase
     .from("topic")
@@ -34,7 +41,7 @@ export async function POST(req: Request) {
     });
   }
 
-  return new Response(JSON.stringify({ data, topics }), {
+  return new Response(JSON.stringify({ data, topics, imageUrl }), {
     headers: {
       "content-type": "application/json",
     },

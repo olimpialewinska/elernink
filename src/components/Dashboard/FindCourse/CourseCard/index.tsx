@@ -10,7 +10,15 @@ interface CourseProps {
 export function CourseCard(props: CourseProps) {
   return (
     <Container onClick={props.onClick}>
-      <Image />
+      <Image
+        style={{
+          backgroundImage:
+            props.course.image != null ? `url(${props.course.image})` : "none",
+
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
       <TitleBox>
         <Title>{props.course.name}</Title>
         <Description>

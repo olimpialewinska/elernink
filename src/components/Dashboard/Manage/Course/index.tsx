@@ -34,7 +34,13 @@ export function CourseComponent(props: Course) {
   return (
     <CourseDiv>
       <Wrapper>
-        <Image />
+        <Image
+          style={{
+            backgroundImage: props.image ? `url("${props.image}")` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
         <IdentityBox>
           <Name>{props.name}</Name>
           <Description>

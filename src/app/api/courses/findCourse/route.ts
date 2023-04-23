@@ -1,3 +1,4 @@
+import { Course } from "@/types";
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -38,7 +39,27 @@ export async function POST(req: Request) {
     });
   }
 
-  return new Response(JSON.stringify(data), {
+  const dataWithUrl = await Promise.all(
+    data.map(async (course) => {
+      if (!course.photoPath) {
+        return {
+          ...course,
+          image: null,
+        };
+      }
+
+      const { data: imageUrl } = supabase.storage
+        .from("photos")
+        .getPublicUrl(course.photoPath);
+
+      return {
+        ...course,
+        image: imageUrl.publicUrl,
+      };
+    })
+  );
+
+  return new Response(JSON.stringify(dataWithUrl), {
     status: 200,
   });
 }

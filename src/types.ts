@@ -3,6 +3,7 @@ export interface Course {
   name: string;
   description: string;
   code: string;
+  image: string;
 }
 
 export interface TopicInterface {

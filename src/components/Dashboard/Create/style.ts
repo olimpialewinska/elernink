@@ -344,8 +344,38 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 
   @media (max-width: 768px) {
     flex-direction: column;
   }
+`;
+
+export const AddImageButton = styled.div`
+  width: 50px;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 8px;
+  transition: 0.5s;
+  background-image: url("/add-image.png");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px dotted rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  opacity: 0.5;
+  margin-left: 20px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+export const NameCont = styled.div`
+  display: flex;
+  justify-content: row;
 `;
