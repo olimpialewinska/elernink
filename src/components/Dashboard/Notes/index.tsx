@@ -1,5 +1,4 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { FileComponent } from "../Files/File";
 import { NoteComponent } from "./Note";
 import { NotesModal } from "./NotesModal";
 import {

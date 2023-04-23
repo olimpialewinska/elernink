@@ -1,13 +1,4 @@
-import {
-  JSXElementConstructor,
-  ReactElement,
-  ReactFragment,
-  ReactPortal,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Container, Navbar, Title, Wrapper } from "./style";
 import { userContext } from "..";
 import { Course } from "@/types";

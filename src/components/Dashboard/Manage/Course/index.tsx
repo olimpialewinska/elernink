@@ -10,10 +10,8 @@ import {
   Description,
 } from "./style";
 import { useCallback } from "react";
-import { useRouter } from "next/navigation";
 
 export function CourseComponent(props: Course) {
-  const router = useRouter();
   const handleDelete = useCallback(async () => {
     const data = await fetch("/api/courses/delete", {
       method: "POST",

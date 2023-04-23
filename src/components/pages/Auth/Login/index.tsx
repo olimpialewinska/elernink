@@ -14,7 +14,7 @@ import {
   ParagraphWrapper,
   Paragraph,
 } from "../style";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function Login() {

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   ModalBg,
   Container,
@@ -12,15 +12,16 @@ import {
   P,
   Div2,
 } from "./style";
-import { imageContext } from "..";
 
 interface MyModalProps {
   visible: boolean;
   hide: () => void;
+  imageUrl: string;
+  courseId: string;
 }
-export function ImageModal(props: MyModalProps) {
-  const { addImage, deleteImage, image } = useContext(imageContext);
+export function EditImageModal(props: MyModalProps) {
   const [dragActive, setDragActive] = useState(false);
+  const [image, setImage] = useState<File | null>(null);
 
   const inputRef = useRef<any>(null);
 
@@ -37,34 +38,54 @@ export function ImageModal(props: MyModalProps) {
     []
   );
 
-  const handleDrop = useCallback(
-    (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setDragActive(false);
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        addImage(e.dataTransfer.files[0]);
-      }
-    },
-    [addImage]
-  );
+  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setImage(e.dataTransfer.files[0]);
+    }
+  }, []);
 
   const onButtonClick = useCallback(() => {
     inputRef.current?.click();
   }, []);
 
-  const deleteFile = useCallback(() => {
-    deleteImage();
-  }, [deleteImage]);
+  const handleChange = useCallback((file: File) => {
+    setImage(file);
+  }, []);
 
-  const handleChange = useCallback(
-    (file: File) => {
-      if (file) {
-        addImage(file);
+  const handleSave = useCallback(() => {
+    if (!image) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append("courseId", props.courseId);
+    formData.append("image", image);
+    fetch("/api/photos/updateCoursePhoto", {
+      method: "POST",
+      body: formData,
+    }).then((res) => {
+      if (res.status === 200) {
+        window.location.reload();
       }
-    },
-    [addImage]
-  );
+    });
+  }, [image, props.courseId]);
+
+  const handleDelete = useCallback(async () => {
+    const data = await fetch("/api/photos/deleteCoursePhoto", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        courseId: props.courseId,
+      }),
+    });
+    if (data.status === 200) {
+      window.location.reload();
+    }
+  }, [props.courseId]);
 
   return (
     <>
@@ -101,8 +122,9 @@ export function ImageModal(props: MyModalProps) {
               />
               <Label
                 style={{
-                  backgroundImage:
-                    image && `url(${URL.createObjectURL(image)})`,
+                  backgroundImage: image
+                    ? `url(${URL.createObjectURL(image)})`
+                    : `url(${props.imageUrl})`,
                 }}
               >
                 <Div>
@@ -137,8 +159,8 @@ export function ImageModal(props: MyModalProps) {
               {" "}
               <Button
                 onClick={() => {
+                  handleSave();
                   props.hide();
-                  console.log(image);
                 }}
               >
                 {" "}
@@ -146,11 +168,11 @@ export function ImageModal(props: MyModalProps) {
               </Button>
               <Button
                 onClick={() => {
-                  deleteFile();
-                  props.hide();
+                  setImage(null);
+                  handleDelete();
                 }}
               >
-                Close
+                Delete Image
               </Button>
             </Div2>
           </>

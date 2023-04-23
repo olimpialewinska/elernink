@@ -17,7 +17,6 @@ import {
 } from "./style";
 import { Course } from "@/types";
 import { userContext } from "../..";
-import { useRouter } from "next/navigation";
 
 interface MyModalProps {
   course: Course;
@@ -25,7 +24,6 @@ interface MyModalProps {
   hide: () => void;
 }
 function MyModal(props: MyModalProps) {
-  const router = useRouter();
   const { id } = useContext(userContext);
   const [code, setCode] = useState("");
   const [valid, setValid] = useState(true);
@@ -52,9 +50,10 @@ function MyModal(props: MyModalProps) {
 
     if (res.status === 200) {
       props.hide();
-      router.push("/dashboard/find");
+
+      window.location.replace("/dashboard/find");
     }
-  }, [id, props, router]);
+  }, [id, props]);
 
   const handleSubmit = useCallback(() => {
     if (props.course.code == code) {

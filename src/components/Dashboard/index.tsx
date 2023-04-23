@@ -12,8 +12,8 @@ import {
   LogoMobile,
   CloseMobile,
 } from "./style";
-import { createContext, useCallback, useEffect, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { createContext, useCallback, useState } from "react";
+import { usePathname } from "next/navigation";
 import { MyCourses } from "./MyCourses";
 import { FindCourse } from "./FindCourse";
 import { Notes } from "./Notes";
@@ -23,7 +23,6 @@ import { useRouter } from "next/navigation";
 import { Create } from "./Create";
 import { useCookies } from "react-cookie";
 import { Manage } from "./Manage";
-import { Edit } from "./Manage/Edit";
 
 export const userContext = createContext({ email: "", id: "" });
 

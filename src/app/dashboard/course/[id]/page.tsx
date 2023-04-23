@@ -11,6 +11,5 @@ export default function ManageEditView({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   useSessionCheck();
-
   return <CoursePage id={params.id} />;
 }

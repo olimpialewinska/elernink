@@ -14,7 +14,6 @@ import {
   CreateButton,
   DescriptionInput,
   IdentityBox,
-  ImageInput,
   NameInput,
   Navbar,
   NewTopicButton,
@@ -30,13 +29,6 @@ import { TopicInterface } from "@/types";
 import { userContext } from "..";
 import { useRouter } from "next/navigation";
 import { ImageModal } from "./ImageModal";
-
-interface Topic {
-  name: string;
-  lesson: string;
-  order: number;
-  listOfFiles: File[];
-}
 
 interface ImageInterface {
   image: File | undefined;

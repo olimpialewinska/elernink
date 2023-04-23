@@ -111,6 +111,7 @@ export function Files() {
           <SearchIcon />
           <SearchInput
             placeholder="Search"
+            value={search}
             onChange={(e) => {
               setSearch(e.target.value);
               searchByName(e.target.value);

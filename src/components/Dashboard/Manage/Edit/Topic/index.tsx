@@ -9,7 +9,6 @@ import {
   Close,
   Save,
   Content,
-  Divider,
   Input,
   DeleteButton,
 } from "./style";

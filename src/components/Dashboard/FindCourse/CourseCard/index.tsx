@@ -14,7 +14,6 @@ export function CourseCard(props: CourseProps) {
         style={{
           backgroundImage:
             props.course.image != null ? `url(${props.course.image})` : "none",
-
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

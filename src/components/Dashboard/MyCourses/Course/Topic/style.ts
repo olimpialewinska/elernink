@@ -135,13 +135,6 @@ export const Content = styled.div<Content>`
   }
 `;
 
-export const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
-  margin: 20px 0;
-`;
-
 export const Input = styled.textarea`
   width: 100%;
   border: none;

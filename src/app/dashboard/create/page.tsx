@@ -4,6 +4,5 @@ import { useSessionCheck } from "@/utils";
 
 export default function CreateView() {
   useSessionCheck();
-
   return <Dashboard />;
 }

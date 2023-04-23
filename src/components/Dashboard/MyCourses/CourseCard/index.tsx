@@ -38,8 +38,6 @@ export function CourseCard(props: CourseProps) {
     if (data.status === 200) {
       window.location.reload();
     }
-
-    setMenu(false);
   }, [id, props.course.id]);
   return (
     <Container

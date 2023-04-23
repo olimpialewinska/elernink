@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useCallback, useContext, useState } from "react";
-import { ModalBg, Container, Navbar } from "./style";
-import { FileUploader } from "react-drag-drop-files";
+import React from "react";
+import { ModalBg, Container } from "./style";
 import { DragDropFile } from "../FileUploader";
 
 interface MyModalProps {

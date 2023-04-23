@@ -6,7 +6,6 @@ import {
   Wrapper,
   File,
   Content,
-  Divider,
   FileContainer,
   FileIcon,
   FileName,

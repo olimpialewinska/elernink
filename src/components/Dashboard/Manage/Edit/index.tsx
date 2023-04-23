@@ -1,5 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import { userContext } from "../..";
+import { useCallback, useEffect, useState } from "react";
 import {
   Navbar,
   Title,
@@ -17,10 +16,10 @@ import {
   Alert,
   AlertInput,
 } from "./style";
-import { Course } from "@/types";
 import { TopicEdit } from "./Topic";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
+import { EditImageModal } from "./EditImageModal";
 
 interface EditInterface {
   id: string;
@@ -30,6 +29,7 @@ export function Edit(props: EditInterface) {
   const [cookies, setCookie] = useCookies(["Authorization"]);
   const token = cookies.Authorization;
   const id = token.user.id;
+
   const router = useRouter();
   const [data, setData] = useState<any>();
   const [topics, setTopics] = useState<any>();
@@ -44,6 +44,11 @@ export function Edit(props: EditInterface) {
   const [description, setDescription] = useState("");
 
   const [image, setImage] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+  };
 
   const updateName = useCallback(async () => {
     const data = await fetch(`/api/courses/updateCourse`, {
@@ -159,6 +164,7 @@ export function Edit(props: EditInterface) {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
+          onClick={handleShow}
         />
         <Wrapper>
           {isName ? (
@@ -278,6 +284,12 @@ export function Edit(props: EditInterface) {
           );
         })}
       </Container>
+      <EditImageModal
+        visible={show}
+        hide={handleClose}
+        imageUrl={image}
+        courseId={props.id}
+      />
     </>
   );
 }

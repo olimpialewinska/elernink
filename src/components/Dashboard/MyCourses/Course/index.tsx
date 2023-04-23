@@ -12,16 +12,12 @@ import {
 } from "./style";
 import { TopicItem } from "./Topic";
 import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
 
 interface ICourse {
   id: string;
 }
 
 export function CoursePage(props: ICourse) {
-  const [cookies, setCookie] = useCookies(["Authorization"]);
-  const token = cookies.Authorization;
-  const id = token.user.id;
   const router = useRouter();
   const [data, setData] = useState<any>();
   const [topics, setTopics] = useState<any>();

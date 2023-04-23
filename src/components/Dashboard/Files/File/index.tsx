@@ -3,11 +3,6 @@ import { Icon, Icons, Name, Wrapper, File } from "./style";
 import { useCallback, useContext } from "react";
 import { userContext } from "../..";
 
-interface FileProps {
-  file: FileInterface;
-  key: string;
-}
-
 export function FileComponent(props: FileInterface, key: string) {
   const { id } = useContext(userContext);
   const handleDelete = useCallback(async () => {
