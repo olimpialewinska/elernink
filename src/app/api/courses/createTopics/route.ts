@@ -9,29 +9,30 @@ const supabase = createClient(
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { id, topics } = body;
-  console.log(topics);
+  const { courseId, topic, lesson, order } = body;
+  console.log(topic, courseId, lesson, order);
 
-  topics.map(async (topic: TopicInterface) => {
-    const { data, error } = await supabase
-      .from("topic")
-      .insert([
-        {
-          course_id: id,
-          topic: topic.topic,
-          lesson: topic.lesson,
-        },
-      ])
-      .select("id");
-    if (error) {
-      console.log(error.message);
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 401,
-      });
-    }
-  });
+  const { data, error } = await supabase
+    .from("topic")
+    .insert([
+      {
+        topic: topic,
+        lesson: lesson,
+        course_id: courseId,
+        order: order,
+      },
+    ])
+    .select("id");
 
-  return new Response(JSON.stringify({}), {
+  if (error) {
+    console.log(error.message);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 401,
+    });
+  }
+
+  console.log(data);
+  return new Response(JSON.stringify(data), {
     status: 200,
   });
 }

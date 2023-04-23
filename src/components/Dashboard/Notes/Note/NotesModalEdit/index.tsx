@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useState } from "react";
 import { ModalBg, Container, Box, NameInput, Wrapper, Button } from "./style";
-import { Editor } from "../../editor";
 import { userContext } from "../../..";
 import { NoteInterface } from "@/types";
 

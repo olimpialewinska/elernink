@@ -128,3 +128,12 @@ export const LoaderWrapper = styled.div`
   overflow: auto;
   flex: 1;
 `;
+
+export const FileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  overflow: auto;
+  flex: 1;
+`;

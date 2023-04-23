@@ -79,6 +79,7 @@ export function CoursePage(props: CourseInterface) {
               topic={item.topic}
               id={item.id}
               lesson={item.lesson}
+              courseId={props.id}
             />
           );
         })}

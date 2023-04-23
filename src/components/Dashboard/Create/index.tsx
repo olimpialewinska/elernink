@@ -1,7 +1,6 @@
 import {
   Dispatch,
   DragEvent,
-  MutableRefObject,
   SetStateAction,
   createContext,
   useCallback,
@@ -12,20 +11,15 @@ import {
 import {
   Box,
   Container,
-  Content,
   CreateButton,
   DeleteButton,
   DescriptionInput,
-  Divider,
   IdentityBox,
   ImageInput,
-  LessonContent,
   NameInput,
   Navbar,
   NewTopicButton,
   Title,
-  Topic,
-  TopicTitle,
   Wrapper,
   CodeInput,
   AlertInput,
@@ -38,6 +32,8 @@ import { useRouter } from "next/navigation";
 interface Topic {
   name: string;
   lesson: string;
+  order: number;
+  listOfFiles: File[];
 }
 
 interface listContextInterface {
@@ -52,6 +48,7 @@ interface listContextInterface {
   changeLesson: (index: number, lesson: string) => void;
   list: TopicInterface[];
   setList: Dispatch<SetStateAction<TopicInterface[]>>;
+  addFileList: (index: number, file: File[]) => void;
 }
 
 export const listContext = createContext({} as listContextInterface);
@@ -63,12 +60,17 @@ export function Create() {
   const dragOverItem = useRef<number | null>();
   const [button, setButton] = useState("Create");
   const [list, setList] = useState<TopicInterface[]>([
-    { topic: `Topic 0`, lesson: "Lesson 0", id: 0 },
+    {
+      topic: `Topic 0`,
+      lesson: "Lesson 0",
+      id: 0,
+      order: 0,
+      listOfFiles: [],
+    },
   ]);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  // const [image, setImage] = useState("");
   const [code, setCode] = useState("");
   const [alert, setAlert] = useState("");
 
@@ -108,7 +110,13 @@ export function Create() {
   const addNewItem = useCallback(() => {
     setList((prev) => [
       ...prev,
-      { topic: `Topic ${list.length}`, lesson: `Lesson`, id: list.length },
+      {
+        topic: `Topic ${list.length}`,
+        lesson: `Lesson`,
+        id: list.length,
+        order: list.length,
+        listOfFiles: [],
+      },
     ]);
   }, [list.length]);
 
@@ -135,6 +143,17 @@ export function Create() {
     });
   }, []);
 
+  const addFileList = useCallback(
+    (index: number, file: File[]) => {
+      setList((prev) => {
+        prev[index].listOfFiles = file;
+        return [...prev];
+      });
+    },
+
+    []
+  );
+
   const handleCreate = useCallback(async () => {
     setButton("Loading...");
     if (name == "") {
@@ -157,31 +176,56 @@ export function Create() {
 
     if (response.status !== 200) {
       setButton("Create");
-
       return;
     }
 
-    const data = await response.json();
-    const courseId = data[0].id;
+    const courseData = await response.json();
 
-    const response2 = await fetch("/api/courses/createTopics", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: courseId,
-        topics: list,
-      }),
-    });
+    for (const index in list) {
+      const topic = list[index].topic;
+      const lesson = list[index].lesson;
+      const order = list[index].order;
+      const listOfFiles = list[index].listOfFiles;
 
-    if (response2.status !== 200) {
-      setButton("Create");
-      return;
+      const response = await fetch("/api/courses/createTopics", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          courseId: courseData[0].id,
+          topic: topic,
+          lesson: lesson,
+          order: order,
+        }),
+      });
+      if (response.status !== 200) {
+        setButton("Create");
+        return;
+      }
+
+      const TopicData = await response.json();
+
+      const formData = new FormData();
+      formData.append("topicId", TopicData[0].id);
+      formData.append("courseId", courseData[0].id);
+
+      for (const i in list[index].listOfFiles) {
+        formData.append("file", listOfFiles[i]);
+      }
+
+      const response2 = await fetch("/api/courses/addCourseFiles", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response2.status !== 200) {
+        setButton("Create");
+        return;
+      }
     }
-
     setButton("Create");
-    router.push(`/dashboard/manage/edit/${courseId}`);
+    router.push(`/dashboard/manage/edit/${courseData[0].id}`);
   }, [alert, code, description, id, list, name, router]);
 
   return (
@@ -226,9 +270,10 @@ export function Create() {
               changeLesson,
               list,
               setList,
+              addFileList,
             }}
           >
-            {list.map((item, index) => (
+            {list.map((item) => (
               <>
                 <TopicItem topic={item} key={item.id} />
               </>
@@ -240,3 +285,5 @@ export function Create() {
     </>
   );
 }
+
+export { userContext };

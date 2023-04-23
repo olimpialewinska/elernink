@@ -10,7 +10,6 @@ export async function POST(req: Request) {
   const body = await req.json();
   const { id, creator } = body;
 
-  // sprawdz czy creator z bazy zgadza sie z tym z body
   const { data: data2, error: error2 } = await supabase
     .from("course")
     .select("*")

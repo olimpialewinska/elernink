@@ -118,7 +118,7 @@ export const NameInput = styled.input`
 export const Content = styled.div<Content>`
   width: 90%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 20px 30px;
   margin-top: -14px;
   margin-bottom: 20px;
@@ -187,4 +187,74 @@ export const DeleteButton = styled.div`
   &:hover {
     opacity: 1;
   }
+`;
+
+export const FileContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const File = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 8px;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+`;
+
+export const FileName = styled.div``;
+
+export const FileIcon = styled.div`
+  width: 20px;
+  height: 20px;
+
+  background-image: url("/file.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  margin-right: 10px;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+export const DownloadIcon = styled.div`
+  width: 20px;
+  height: 20px;
+
+  background-image: url("/download.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const Box = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const LessonContent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
 `;

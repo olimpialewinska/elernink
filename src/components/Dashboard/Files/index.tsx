@@ -13,6 +13,7 @@ import {
   Wrapper,
   Button,
   LoaderWrapper,
+  FileWrapper,
 } from "./style";
 import { FileModal } from "./Modal";
 import { userContext } from "..";
@@ -157,7 +158,7 @@ export function Files() {
             <Loader />
           </LoaderWrapper>
         ) : (
-          <LoaderWrapper>
+          <FileWrapper>
             {files?.map((file: FileInterface) => {
               return (
                 <FileComponent
@@ -168,7 +169,7 @@ export function Files() {
                 />
               );
             })}
-          </LoaderWrapper>
+          </FileWrapper>
         )}
 
         <FileModal visible={show} hide={handleClose} />
