@@ -14,17 +14,18 @@ import { TopicItem } from "./Topic";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 
-interface CourseInterface {
+interface ICourse {
   id: string;
 }
 
-export function CoursePage(props: CourseInterface) {
+export function CoursePage(props: ICourse) {
   const [cookies, setCookie] = useCookies(["Authorization"]);
   const token = cookies.Authorization;
   const id = token.user.id;
   const router = useRouter();
   const [data, setData] = useState<any>();
   const [topics, setTopics] = useState<any>();
+  const [image, setImage] = useState("");
 
   const getCourseData = useCallback(async () => {
     const data = await fetch(`/api/courses/getCourse`, {
@@ -45,6 +46,7 @@ export function CoursePage(props: CourseInterface) {
 
     setData(response.data);
     setTopics(response.topics);
+    setImage(response.imageUrl);
   }, [props.id, router]);
 
   useEffect(() => {
@@ -59,7 +61,13 @@ export function CoursePage(props: CourseInterface) {
             window.history.back();
           }}
         />
-        <Image />
+        <Image
+          style={{
+            backgroundImage: image ? `url(${image})` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
         <Wrapper>
           <Row>
             <Title> {data?.[0].name}</Title>
