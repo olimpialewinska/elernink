@@ -19,7 +19,6 @@ export async function POST(req: Request) {
     });
 
   if (error2) {
-    console.log(error2.message);
     return new Response(JSON.stringify({ error: error2.message }), {
       status: 401,
     });
@@ -40,7 +39,6 @@ export async function POST(req: Request) {
     .eq("id", id);
 
   if (error) {
-    console.log(error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 401,
     });
@@ -60,7 +58,6 @@ export async function POST(req: Request) {
     .eq("course_id", id);
 
   if (errorTopics) {
-    console.log(errorTopics.message);
     return new Response(JSON.stringify({ error: errorTopics.message }), {
       status: 401,
     });

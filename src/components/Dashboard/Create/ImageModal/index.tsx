@@ -138,7 +138,6 @@ export function ImageModal(props: MyModalProps) {
               <Button
                 onClick={() => {
                   props.hide();
-                  console.log(image);
                 }}
               >
                 {" "}

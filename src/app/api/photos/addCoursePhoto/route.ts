@@ -22,7 +22,6 @@ export async function POST(req: Request) {
         upsert: false,
       });
     if (error) {
-      console.log(error);
       return new Response(JSON.stringify({ error: error.message }), {
         status: 401,
       });
@@ -34,7 +33,6 @@ export async function POST(req: Request) {
       .eq("id", courseId);
 
     if (fileError) {
-      console.log(fileError);
       return new Response(JSON.stringify({ error: fileError.message }), {
         status: 401,
       });

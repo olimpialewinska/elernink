@@ -16,7 +16,6 @@ export async function POST(req: Request) {
     .eq("userId", userId);
 
   if (error) {
-    console.log(error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 401,
     });
@@ -32,7 +31,6 @@ export async function POST(req: Request) {
         await supabase.storage.from("files").download(`${userId}/${file.name}`);
 
       if (downloadError) {
-        console.log(downloadError.message);
         return new Response(JSON.stringify({ error: downloadError.message }), {
           status: 401,
         });

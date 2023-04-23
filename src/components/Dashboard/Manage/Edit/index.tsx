@@ -125,8 +125,6 @@ export function Edit(props: EditInterface) {
 
     const response = await data.json();
 
-    console.log(response);
-
     setData(response.data);
     setTopics(response.topics);
     setName(response.data?.[0].name);

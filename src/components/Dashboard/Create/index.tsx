@@ -86,7 +86,6 @@ export function Create() {
   const dragStart = useCallback(
     (e: DragEvent<HTMLDivElement>, position: number) => {
       dragItem.current = position;
-      console.log(dragItem);
     },
     []
   );
@@ -94,7 +93,6 @@ export function Create() {
   const dragEnter = useCallback(
     (e: DragEvent<HTMLDivElement>, position: number | null | undefined) => {
       dragOverItem.current = position;
-      console.log(dragOverItem);
     },
     []
   );
@@ -163,18 +161,13 @@ export function Create() {
     []
   );
 
-  const addImage = useCallback(
-    (imageFile: File) => {
-      setImage(imageFile);
-      console.log(image);
-    },
-    [image]
-  );
+  const addImage = useCallback((imageFile: File) => {
+    setImage(imageFile);
+  }, []);
 
   const deleteImage = useCallback(() => {
     setImage(undefined);
-    console.log(image);
-  }, [image]);
+  }, []);
 
   const handleCreate = useCallback(async () => {
     setButton("Loading...");
@@ -202,8 +195,6 @@ export function Create() {
     }
 
     const courseData = await response.json();
-
-    console.log(image);
 
     if (image) {
       const formData = new FormData();

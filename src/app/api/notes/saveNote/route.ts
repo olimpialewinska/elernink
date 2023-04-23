@@ -15,7 +15,6 @@ export async function POST(req: Request) {
     .insert([{ userId, name, value }])
     .select("id");
   if (error) {
-    console.log(error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 401,
     });

@@ -53,7 +53,7 @@ export function FindCourse(props: FindProps) {
       setError(false);
       const response = await data.json();
       setCourses(response);
-      console.log(response);
+
       setLoading(false);
       return;
     }

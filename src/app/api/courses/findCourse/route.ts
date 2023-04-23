@@ -17,7 +17,6 @@ export async function POST(req: Request) {
     .eq("userId", userId);
 
   if (mycoursesError) {
-    console.log(mycoursesError.message);
     return new Response(JSON.stringify({ error: mycoursesError.message }), {
       status: 401,
     });
@@ -33,7 +32,6 @@ export async function POST(req: Request) {
     .order("id", { ascending: false });
 
   if (error) {
-    console.log(error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 401,
     });

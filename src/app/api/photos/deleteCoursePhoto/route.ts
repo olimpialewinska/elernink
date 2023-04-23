@@ -14,23 +14,16 @@ export async function POST(req: Request) {
     .eq("id", courseId);
 
   if (courseError) {
-    console.log(courseError.message);
     return new Response(JSON.stringify({ error: courseError.message }), {
       status: 401,
     });
   }
-  console.log(photoName);
 
   const { data: deleteData, error: deleteError } = await supabase.storage
     .from("photos")
     .remove([photoName[0].photoPath.slice(1)]);
 
-  console.log(deleteError);
-  console.log(deleteData);
-  console.log(photoName);
-
   if (deleteError) {
-    console.log(deleteError.message);
     return new Response(JSON.stringify({ error: deleteError.message }), {
       status: 401,
     });
@@ -45,7 +38,6 @@ export async function POST(req: Request) {
     .eq("id", courseId);
 
   if (error) {
-    console.log(error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 401,
     });

@@ -13,7 +13,6 @@ export async function POST(req: Request) {
   const { data, error } = await supabase.from("files").delete().eq("id", id);
 
   if (error) {
-    console.log(error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 401,
     });
@@ -23,7 +22,6 @@ export async function POST(req: Request) {
     .remove([`${userId}/${fileName}`]);
 
   if (storageError) {
-    console.log(error);
     return new Response(JSON.stringify({ error: storageError.message }), {
       status: 401,
     });

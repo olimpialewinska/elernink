@@ -52,7 +52,6 @@ export function Files() {
     const data = await files.json();
     setFiles(data);
     setLoading(false);
-    console.log(data);
   }, [id]);
 
   useEffect(() => {

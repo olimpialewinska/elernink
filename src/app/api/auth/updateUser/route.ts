@@ -15,7 +15,6 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.log(error);
       return new Response(JSON.stringify({ error: error.message }), {
         status: 401,
       });
@@ -32,7 +31,6 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.log(error.message);
       return new Response(JSON.stringify({ error: error.message }), {
         status: 401,
       });

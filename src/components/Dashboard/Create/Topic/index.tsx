@@ -70,10 +70,9 @@ export function TopicItem(props: TopicItemInterface) {
         const newFiles = [...files, ...Array.from(e.dataTransfer.files)];
         setFiles(newFiles);
         addFileList(props.topic.id, newFiles);
-        console.log(list);
       }
     },
-    [addFileList, files, list, props.topic.id]
+    [addFileList, files, props.topic.id]
   );
 
   const onButtonClick = useCallback(() => {
@@ -86,9 +85,8 @@ export function TopicItem(props: TopicItemInterface) {
       newFiles.splice(index as number, 1);
       setFiles(newFiles);
       addFileList(props.topic.id, newFiles);
-      console.log(list);
     },
-    [addFileList, files, list, props.topic.id]
+    [addFileList, files, props.topic.id]
   );
 
   const handleChangeTopic = useCallback(
@@ -114,9 +112,8 @@ export function TopicItem(props: TopicItemInterface) {
       if (!newFiles) return;
       setFiles([...files, ...Array.from(newFiles)]);
       addFileList(props.topic.id, [...files, ...Array.from(newFiles)]);
-      console.log(list);
     },
-    [addFileList, files, list, props.topic.id]
+    [addFileList, files, props.topic.id]
   );
 
   return (
