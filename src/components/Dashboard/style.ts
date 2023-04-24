@@ -74,6 +74,8 @@ export const Content = styled.div<ContentProps>`
 
   @media (max-width: 768px) {
     width: 100%;
+    height: 100%;
+
     margin-left: 0;
     border-radius: 0;
     padding: 0;

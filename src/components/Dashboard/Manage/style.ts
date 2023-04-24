@@ -26,7 +26,6 @@ export const Container = styled.div`
   padding: 20px;
   overflow-y: auto;
 
-  //media
   @media (max-width: 768px) {
     overflow: none;
   }

@@ -37,11 +37,6 @@ export function FileComponent(props: FileInterface, key: string) {
       <Icons>
         <Icon
           style={{
-            backgroundImage: `url("/expand.png")`,
-          }}
-        />
-        <Icon
-          style={{
             backgroundImage: `url("/download.png")`,
           }}
           onClick={() => {

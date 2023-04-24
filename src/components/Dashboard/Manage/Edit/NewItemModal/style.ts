@@ -28,6 +28,9 @@ export const Container = styled.div`
 
   @media (max-width: 768px) {
     margin-bottom: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
   }
 `;
 
@@ -330,6 +333,6 @@ export const Div2 = styled.div`
   justify-content: space-between;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 `;

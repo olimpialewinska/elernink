@@ -295,6 +295,9 @@ export const FileContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 export const CourseFile = styled.div`
