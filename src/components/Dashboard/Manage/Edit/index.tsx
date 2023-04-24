@@ -15,11 +15,15 @@ import {
   NameInput,
   Alert,
   AlertInput,
+  NewTopicButton,
 } from "./style";
-import { TopicEdit } from "./Topic";
+
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { EditImageModal } from "./EditImageModal";
+import { TopicInterface } from "@/types";
+import { TopicEdit } from "./Topic";
+import { NewItemModal } from "./NewItemModal";
 
 interface EditInterface {
   id: string;
@@ -32,7 +36,7 @@ export function Edit(props: EditInterface) {
 
   const router = useRouter();
   const [data, setData] = useState<any>();
-  const [topics, setTopics] = useState<any>();
+  const [topics, setTopics] = useState<TopicInterface[]>();
   const [isName, setIsName] = useState(false);
   const [isDescription, setIsDescription] = useState(false);
   const [newName, setNewName] = useState("");
@@ -42,12 +46,17 @@ export function Edit(props: EditInterface) {
   const [newAlert, setNewAlert] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-
   const [image, setImage] = useState("");
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
+  };
+  const [showNewItem, setShowNewItem] = useState(false);
+  const handleCloseNewItem = () => setShowNewItem(false);
+  const handleShowNewItem = () => {
+    setShowNewItem(true);
   };
 
   const updateName = useCallback(async () => {
@@ -270,23 +279,22 @@ export function Edit(props: EditInterface) {
             />
           </Alert>
         )}
-
-        {topics?.map((item: any) => {
-          return (
-            <TopicEdit
-              key={item.id}
-              topic={item.topic}
-              id={item.id}
-              lesson={item.lesson}
-            />
-          );
+        {topics?.map((topic: TopicInterface) => {
+          return <TopicEdit key={topic.id} topic={topic} courseId={props.id} />;
         })}
+        <NewTopicButton onClick={handleShowNewItem}>+</NewTopicButton>
       </Container>
       <EditImageModal
         visible={show}
         hide={handleClose}
         imageUrl={image}
         courseId={props.id}
+      />
+      <NewItemModal
+        visible={showNewItem}
+        hide={handleCloseNewItem}
+        courseId={props.id}
+        order={topics?.length ? topics?.length + 1 : 1}
       />
     </>
   );

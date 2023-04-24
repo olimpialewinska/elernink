@@ -11,6 +11,8 @@ export async function POST(req: Request) {
   const courseId = files.get("courseId");
   const topicId = files.get("topicId");
 
+  console.log(files);
+
   for (var pair of files.entries()) {
     if (pair[0] == "topicId" || pair[0] == "courseId") {
       continue;
@@ -25,6 +27,7 @@ export async function POST(req: Request) {
         upsert: false,
       });
     if (error) {
+      console.log(error.message);
       return new Response(JSON.stringify({ error: error.message }), {
         status: 401,
       });
@@ -42,6 +45,7 @@ export async function POST(req: Request) {
         },
       ]);
     if (fileError) {
+      console.log(fileError.message);
       return new Response(JSON.stringify({ error: fileError.message }), {
         status: 401,
       });

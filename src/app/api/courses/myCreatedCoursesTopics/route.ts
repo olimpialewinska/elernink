@@ -55,7 +55,8 @@ export async function POST(req: Request) {
   const { data: topics, error: errorTopics } = await supabase
     .from("topic")
     .select("*")
-    .eq("course_id", id);
+    .eq("course_id", id)
+    .order("order", { ascending: true });
 
   if (errorTopics) {
     return new Response(JSON.stringify({ error: errorTopics.message }), {

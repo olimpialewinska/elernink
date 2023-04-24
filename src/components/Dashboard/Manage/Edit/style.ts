@@ -172,3 +172,47 @@ export const AlertInput = styled.input`
   color: #333;
   background-color: transparent;
 `;
+
+export const NewTopicButton = styled.div`
+  width: 50px;
+  height: 50px;
+  background-image: linear-gradient(
+    0deg,
+    rgba(133, 183, 219, 0.3) 0%,
+    rgba(205, 170, 233, 0.3) 100%
+  );
+
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:after {
+    font-size: 40px;
+    content: "";
+    transition: 0.2s opacity;
+    display: block;
+    inset: 0;
+    position: absolute;
+    background-image: linear-gradient(
+      0deg,
+      rgba(133, 183, 219, 0.4) 0%,
+      rgba(205, 170, 233, 0.4) 100%
+    );
+    opacity: 0;
+  }
+
+  &:hover {
+    &:after {
+      opacity: 1;
+    }
+  }
+`;

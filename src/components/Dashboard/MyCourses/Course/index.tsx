@@ -59,7 +59,7 @@ export function CoursePage(props: ICourse) {
         />
         <Image
           style={{
-            backgroundImage: image ? `url(${image})` : "none",
+            backgroundImage: `url(${image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

@@ -1,5 +1,36 @@
 import styled from "styled-components";
 
+export const ModalBg = styled.div`
+  transition: 0.2s opacity;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  z-index: 99999;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Container = styled.div`
+  width: 80%;
+  height: 80%;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+`;
+
 export const Topic = styled.div`
   width: 100%;
   display: flex;
@@ -96,6 +127,7 @@ export const DeleteButton = styled.div`
 
 export const Input = styled.textarea`
   width: 100%;
+  height: 160px;
   border: none;
   font-size: 16px;
   padding: 16px;
@@ -115,6 +147,7 @@ export const Input = styled.textarea`
 
   @media (max-width: 768px) {
     width: 90%;
+    height: 200px;
   }
 
   &::placeholder {
@@ -186,6 +219,7 @@ export const Button = styled.div`
 
 export const Files = styled.div`
   width: 100%;
+
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -290,109 +324,12 @@ export const Error = styled.div`
   margin-top: 0.25rem;
 `;
 
-export const FileContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-`;
-
-export const CourseFile = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  margin-bottom: 8px;
-  background-color: rgba(0, 0, 0, 0.04);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.06);
-  }
-`;
-
-export const FileName = styled.div``;
-
-export const FileIcon = styled.div`
-  width: 20px;
-  height: 20px;
-
-  background-image: url("/file.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.6;
-  transition: opacity 0.3s;
-  margin-right: 10px;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-export const DeleteIcon = styled.div`
-  width: 20px;
-  height: 20px;
-
-  background-image: url("/delete.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.6;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-export const Box = styled.div`
-  flex: 1;
+export const Div2 = styled.div`
   display: flex;
   flex-direction: row;
-`;
+  justify-content: space-between;
 
-export const CreateButton = styled.div`
-  width: 180px;
-  background-image: linear-gradient(
-    0deg,
-    rgba(133, 183, 219, 0.3) 0%,
-    rgba(205, 170, 233, 0.3) 100%
-  );
-  margin: 10px;
-  border: none;
-  font-size: 16px;
-  color: #000;
-  padding: 16px;
-  outline: none;
-  border-radius: 24px;
-  font-size: 14px;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-weight: bold;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-
-  &:after {
-    content: "";
-    transition: 0.2s opacity;
-    display: block;
-    inset: 0;
-    position: absolute;
-    background-image: linear-gradient(
-      0deg,
-      rgba(133, 183, 219, 0.4) 0%,
-      rgba(205, 170, 233, 0.4) 100%
-    );
-    opacity: 0;
-  }
-
-  &:hover {
-    &:after {
-      opacity: 1;
-    }
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 `;

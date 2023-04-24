@@ -307,9 +307,7 @@ export function Create() {
             }}
           >
             {list.map((item) => (
-              <>
-                <TopicItem topic={item} key={item.id} />
-              </>
+              <TopicItem topic={item} key={item.id} />
             ))}
             <NewTopicButton onClick={addNewItem}>+</NewTopicButton>
           </listContext.Provider>
