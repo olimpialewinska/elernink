@@ -18,37 +18,39 @@ export async function POST(req: Request) {
       continue;
     }
 
-    const newName = pair[1].name.replace(/[^a-zA-Z0-9.]/g, "");
-    const path = `/${courseId}/${topicId}/${newName}`;
-    const { data, error } = await supabase.storage
-      .from("courseFiles")
-      .upload(path, pair[1], {
-        cacheControl: "3600",
-        upsert: false,
-      });
-    if (error) {
-      console.log(error.message);
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 401,
-      });
-    }
+    if (pair instanceof File) {
+      const newName = pair.name.replace(/[^a-zA-Z0-9.]/g, "");
+      const path = `/${courseId}/${topicId}/${newName}`;
+      const { data, error } = await supabase.storage
+        .from("courseFiles")
+        .upload(path, pair[1], {
+          cacheControl: "3600",
+          upsert: false,
+        });
+      if (error) {
+        console.log(error.message);
+        return new Response(JSON.stringify({ error: error.message }), {
+          status: 401,
+        });
+      }
 
-    const { data: fileData, error: fileError } = await supabase
-      .from("topic_files")
-      .insert([
-        {
-          filename: newName,
-          path: path,
-          topic_id: topicId,
-          course_id: courseId,
-          type: pair[1].type,
-        },
-      ]);
-    if (fileError) {
-      console.log(fileError.message);
-      return new Response(JSON.stringify({ error: fileError.message }), {
-        status: 401,
-      });
+      const { data: fileData, error: fileError } = await supabase
+        .from("topic_files")
+        .insert([
+          {
+            filename: newName,
+            path: path,
+            topic_id: topicId,
+            course_id: courseId,
+            type: pair.type,
+          },
+        ]);
+      if (fileError) {
+        console.log(fileError.message);
+        return new Response(JSON.stringify({ error: fileError.message }), {
+          status: 401,
+        });
+      }
     }
   }
 

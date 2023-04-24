@@ -12,30 +12,31 @@ export async function POST(req: Request) {
     if (pair[0] == "courseId") {
       continue;
     }
+    if (pair instanceof File) {
+      const newName = pair.name.replace(/[^a-zA-Z0-9.]/g, "");
+      const path = `/${courseId}/${newName}`;
+      const { data, error } = await supabase.storage
+        .from("photos")
+        .upload(path, pair[1], {
+          cacheControl: "3600",
+          upsert: false,
+        });
+      if (error) {
+        return new Response(JSON.stringify({ error: error.message }), {
+          status: 401,
+        });
+      }
 
-    const newName = pair[1].name.replace(/[^a-zA-Z0-9.]/g, "");
-    const path = `/${courseId}/${newName}`;
-    const { data, error } = await supabase.storage
-      .from("photos")
-      .upload(path, pair[1], {
-        cacheControl: "3600",
-        upsert: false,
-      });
-    if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 401,
-      });
-    }
+      const { data: fileData, error: fileError } = await supabase
+        .from("course")
+        .update({ photoPath: path, photoName: pair.name })
+        .eq("id", courseId);
 
-    const { data: fileData, error: fileError } = await supabase
-      .from("course")
-      .update({ photoPath: path, photoName: pair[1].name })
-      .eq("id", courseId);
-
-    if (fileError) {
-      return new Response(JSON.stringify({ error: fileError.message }), {
-        status: 401,
-      });
+      if (fileError) {
+        return new Response(JSON.stringify({ error: fileError.message }), {
+          status: 401,
+        });
+      }
     }
   }
 

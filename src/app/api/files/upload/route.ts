@@ -17,35 +17,37 @@ export async function POST(req: Request) {
       continue;
     }
 
-    const newName = pair[1].name.replace(/[^a-zA-Z0-9.]/g, "");
-    const path = `${userId.id}/${newName}`;
-    const { data, error } = await supabase.storage
-      .from("files")
-      .upload(path, pair[1], {
-        cacheControl: "3600",
-        upsert: false,
-      });
-    if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 401,
-      });
-    }
+    if (pair instanceof File) {
+      const newName = pair.name.replace(/[^a-zA-Z0-9.]/g, "");
+      const path = `${userId.id}/${newName}`;
+      const { data, error } = await supabase.storage
+        .from("files")
+        .upload(path, pair[1], {
+          cacheControl: "3600",
+          upsert: false,
+        });
+      if (error) {
+        return new Response(JSON.stringify({ error: error.message }), {
+          status: 401,
+        });
+      }
 
-    const { data: fileData, error: fileError } = await supabase
-      .from("files")
-      .insert([
-        {
-          name: newName,
-          url: data.path,
-          size: pair[1].size,
-          type: pair[1].type,
-          userId: userId.id,
-        },
-      ]);
-    if (fileError) {
-      return new Response(JSON.stringify({ error: fileError.message }), {
-        status: 401,
-      });
+      const { data: fileData, error: fileError } = await supabase
+        .from("files")
+        .insert([
+          {
+            name: newName,
+            url: data.path,
+            size: pair.size,
+            type: pair.type,
+            userId: userId.id,
+          },
+        ]);
+      if (fileError) {
+        return new Response(JSON.stringify({ error: fileError.message }), {
+          status: 401,
+        });
+      }
     }
   }
 
