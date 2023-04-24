@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       const path = `${userId.id}/${newName}`;
       const { data, error } = await supabase.storage
         .from("files")
-        .upload(path, pair[1], {
+        .upload(path, pair, {
           cacheControl: "3600",
           upsert: false,
         });
