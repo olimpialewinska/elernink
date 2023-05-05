@@ -15,7 +15,7 @@ import {
   Paragraph,
 } from "../style";
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -108,10 +108,20 @@ export function Login() {
             </Link>
           </ParagraphWrapper>
 
-          <ParagraphWrapper>
+          <ParagraphWrapper
+            style={{
+              flexDirection: "column",
+            }}
+          >
             <Text>Have you forgotten your password? </Text>
             <Link href="/forgottenPassword">
-              <Href>Remind me!</Href>
+              <Href
+                style={{
+                  marginTop: "0.5rem",
+                }}
+              >
+                Remind me!
+              </Href>
             </Link>
           </ParagraphWrapper>
         </LoginFooter>

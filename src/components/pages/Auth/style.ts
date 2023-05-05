@@ -36,7 +36,6 @@ export const RegisterContent = styled.form`
 
 export const Input = styled.input`
   width: 100%;
-
   border: none;
   font-size: 16px;
   padding: 16px;
@@ -122,7 +121,7 @@ export const LoginContainer = styled.div`
   align-items: center;
   position: relative;
   @media (max-width: 768px) {
-    width: 80% !important;
+    width: 90% !important;
   }
 `;
 
@@ -143,6 +142,10 @@ export const LoginContent = styled.form`
   justify-content: center;
   align-items: center;
   width: 80%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const LoginFooter = styled.div`
@@ -151,6 +154,10 @@ export const LoginFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 30px 0;
+
+  @media (max-width: 768px) {
+    margin: 20px 0;
+  }
 `;
 
 export const Text = styled.div`

@@ -1,4 +1,5 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
+
 import {
   Button,
   Container,

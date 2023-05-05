@@ -1,10 +1,6 @@
-import { redirect } from "next/navigation";
-import { useCookies } from "react-cookie";
+import { createClient } from "@supabase/supabase-js";
 
-export const useSessionCheck = () => {
-  const [cookies, setCookie] = useCookies(["Authorization"]);
-  const token = cookies.Authorization;
-  if (!token) {
-    redirect("/login");
-  }
-};
+export const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_ANON_KEY!
+);

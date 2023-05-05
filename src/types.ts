@@ -26,3 +26,21 @@ export interface NoteInterface {
   value: string;
   userId: string;
 }
+
+export interface IUser {
+  email: string;
+  id: string;
+}
+
+export interface ContentProps {
+  close: boolean;
+}
+
+export interface IMenuMobile {
+  open: boolean;
+}
+
+export interface IParticipant {
+  userId: string;
+  user_name: string;
+}
