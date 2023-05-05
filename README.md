@@ -2,6 +2,8 @@
 
 This project is an e-learning portal that allows users to create and access courses, create notes, and store files. The portal is built using Next.js and uses Supabase as its database.
 
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/100933608/236555083-b07ea9d5-5ed5-44bb-a294-c22662941251.png">
+
 ## Features
 
 The e-learning portal includes the following features:
