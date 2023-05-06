@@ -120,6 +120,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Item
               onClick={() => {
                 Router.push("/dashboard");
+                setOpen(!open);
               }}
             >
               My Courses
@@ -129,6 +130,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               <Item
                 onClick={() => {
                   Router.push("/dashboard/create");
+                  setOpen(!open);
                 }}
               >
                 Create a course
@@ -137,6 +139,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               <Item
                 onClick={() => {
                   Router.push("/dashboard/manage");
+                  setOpen(!open);
                 }}
               >
                 Manage courses
@@ -146,6 +149,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Item
               onClick={() => {
                 Router.push("/dashboard/find");
+                setOpen(!open);
               }}
             >
               Find a course
@@ -154,6 +158,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Item
               onClick={() => {
                 Router.push("/dashboard/notes");
+                setOpen(!open);
               }}
             >
               Notes
@@ -162,6 +167,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Item
               onClick={() => {
                 Router.push("/dashboard/files");
+                setOpen(!open);
               }}
             >
               Files
@@ -170,6 +176,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Item
               onClick={() => {
                 Router.push("/dashboard/settings");
+                setOpen(!open);
               }}
             >
               Settings
