@@ -243,7 +243,12 @@ export function TopicEdit(props: TopicItemInterface) {
                     >
                       <Box>
                         <FileIcon />
-                        <FileName> {file.name}</FileName>
+                        <FileName>
+                          {" "}
+                          {file.name.length > 30
+                            ? file.name.substring(0, 30) + "..."
+                            : file.name}
+                        </FileName>
                       </Box>
                       <DeleteIcon
                         onClick={() => {
