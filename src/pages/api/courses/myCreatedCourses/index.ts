@@ -21,7 +21,8 @@ export default async function handler(
   const { data, error } = await supabase
     .from("course")
     .select("*")
-    .eq("creator", id);
+    .eq("creator", id)
+    .order("id", { ascending: false });
 
   if (error) {
     res.status(401).send({
