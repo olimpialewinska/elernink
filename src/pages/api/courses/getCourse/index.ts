@@ -42,7 +42,8 @@ export default async function handler(
   const { data: topics, error: errorTopics } = await supabase
     .from("topic")
     .select("*")
-    .eq("course_id", id);
+    .eq("course_id", id)
+    .order("id", { ascending: false });
 
   if (errorTopics) {
     res.status(401).send({
