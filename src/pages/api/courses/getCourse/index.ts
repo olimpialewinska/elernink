@@ -43,7 +43,7 @@ export default async function handler(
     .from("topic")
     .select("*")
     .eq("course_id", id)
-    .order("order", { ascending: false });
+    .order("order", { ascending: true });
 
   if (errorTopics) {
     res.status(401).send({
