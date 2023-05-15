@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextApiRequest, NextApiResponse } from "next";
+import { json } from "stream/consumers";
 
 const supabase = createClient(
   process.env.SUPABASE_URL!,
@@ -37,5 +38,5 @@ export default async function handler(
       `Authorization=${JSON.stringify(data)}; Max-Age=3600; Path=/`
     )
     .status(200)
-    .send(data);
+    .send(JSON.stringify(data));
 }
