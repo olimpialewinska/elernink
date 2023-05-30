@@ -20,30 +20,7 @@ import {
 import { NoteInterface } from "@/types";
 import { Loader } from "@/components/Loader";
 import { mainContext } from "@/pages/_app";
-
-const sort = (noteList: NoteInterface[], type: "asc" | "desc") => {
-  const sortedNotes = noteList
-    ?.slice()
-    .sort((a: NoteInterface, b: NoteInterface) => {
-      if (type === "asc") {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-      } else {
-        if (a.name > b.name) {
-          return -1;
-        }
-        if (a.name < b.name) {
-          return 1;
-        }
-      }
-      return 0;
-    });
-  return sortedNotes;
-};
+import { sortArrayByProperty } from "@/utils/functions";
 
 interface NotesProps {
   notes: any;
@@ -60,23 +37,12 @@ export function Notes(props: NotesProps) {
   };
   const [select, setSelect] = useState<"AZ" | "ZA">("AZ");
 
-  const sortNotesAZ = useCallback(() => {
-    const sortedNotes = notes
-      ?.slice()
-      .sort((a: NoteInterface, b: NoteInterface) => {
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        return 0;
-      });
-    setNotes(sortedNotes);
-  }, [notes]);
-
   const sortNotes = useCallback(() => {
-    const sortedNotes = sort(notes, select === "AZ" ? "asc" : "desc");
+    const sortedNotes = sortArrayByProperty(
+      notes,
+      "name",
+      select === "AZ" ? "asc" : "desc"
+    );
     setNotes(sortedNotes);
   }, [notes, select]);
 

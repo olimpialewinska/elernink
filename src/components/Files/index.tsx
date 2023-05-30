@@ -20,34 +20,11 @@ import { FileModal } from "./Modal";
 import { FileInterface } from "@/types";
 import { Loader } from "@/components/Loader";
 import { mainContext } from "@/pages/_app";
+import { searchByName, sortArrayByProperty } from "@/utils/functions";
 
 interface IFiles {
   files: any;
 }
-
-const sortFiles = (fileList: FileInterface[], type: "asc" | "desc") => {
-  const sortedFiles = fileList
-    ?.slice()
-    .sort((a: FileInterface, b: FileInterface) => {
-      if (type === "asc") {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-      } else {
-        if (a.name > b.name) {
-          return -1;
-        }
-        if (a.name < b.name) {
-          return 1;
-        }
-      }
-      return 0;
-    });
-  return sortedFiles;
-};
 
 export function Files(props: IFiles) {
   const { auth } = useContext(mainContext);
@@ -83,13 +60,10 @@ export function Files(props: IFiles) {
     setLoading(false);
   }, [auth.id]);
 
-  const searchByName = useCallback(
+  const handleSearchByName = useCallback(
     (name: string) => {
       if (name != "") {
-        const filteredList = files?.filter((file: FileInterface) => {
-          return file.name.toLowerCase().includes(name.toLowerCase());
-        });
-        setFiles(filteredList);
+        setFiles(searchByName(name, files));
       } else {
         getFiles();
       }
@@ -106,7 +80,11 @@ export function Files(props: IFiles) {
   );
 
   const sort = useCallback(() => {
-    const sortedFiles = sortFiles(files, select === "AZ" ? "desc" : "asc");
+    const sortedFiles = sortArrayByProperty(
+      files,
+      "name",
+      select === "AZ" ? "desc" : "asc"
+    );
     setFiles(sortedFiles);
   }, [files, select]);
 
@@ -121,7 +99,7 @@ export function Files(props: IFiles) {
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
-              searchByName(e.target.value);
+              handleSearchByName(e.target.value);
             }}
           />
         </Search>

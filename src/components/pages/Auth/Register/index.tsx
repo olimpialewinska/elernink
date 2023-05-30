@@ -10,6 +10,7 @@ import {
   Paragraph,
 } from "../style";
 import { useCallback, useState } from "react";
+import { emailValidation } from "@/utils/functions";
 
 export function Register() {
   const router = useRouter();
@@ -59,16 +60,14 @@ export function Register() {
     setButonText("Register");
   }, [confirm, email, password, router]);
 
-  const emailValidation = useCallback(() => {
+  const handleMailValidation = useCallback(() => {
     setError("");
-    const expression = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,}$/i;
-    setValidEmail(expression.test(email));
+    setValidEmail(emailValidation(email));
   }, [email]);
 
   const passwordMatch = useCallback(
     (confirm: string) => {
       setError("");
-
       password == confirm ? setMatch(true) : setMatch(false);
     },
     [password]
@@ -103,7 +102,7 @@ export function Register() {
             placeholder="Email"
             onChange={(e) => {
               setEmail(e.target.value);
-              emailValidation();
+              handleMailValidation();
             }}
           />
           <Input

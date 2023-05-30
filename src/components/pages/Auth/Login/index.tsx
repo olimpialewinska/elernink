@@ -16,6 +16,7 @@ import {
 } from "../style";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
+import { emailValidation } from "@/utils/functions";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -48,10 +49,9 @@ export function Login() {
     }
   }, [email, password, router]);
 
-  const emailValidation = useCallback(() => {
+  const handleMailValidation = useCallback(() => {
     setError("");
-    const expression = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,}$/i;
-    setValid(expression.test(email));
+    setValid(emailValidation(email));
   }, [email]);
 
   const handleKeyDown = useCallback(
@@ -85,7 +85,7 @@ export function Login() {
             placeholder="Email"
             onChange={(e) => {
               setEmail(e.target.value);
-              emailValidation();
+              handleMailValidation();
             }}
           />
           <Input
