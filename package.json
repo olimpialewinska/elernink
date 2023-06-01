@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "mocha",
-    "build": "tsc"
+    "build": "next build"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.5.6",
