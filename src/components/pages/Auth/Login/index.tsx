@@ -17,6 +17,7 @@ import {
 import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { emailValidation } from "@/utils/functions";
+import { login } from "@/utils/login";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -30,18 +31,7 @@ export function Login() {
     if (email === "" || password === "") {
       return;
     }
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-
-    const data = await response.json();
+    const data = await login(fetch, email, password);
     if (data.error) {
       setError(data.error);
     } else {
